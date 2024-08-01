@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MainMenuItem } from '../models/ui/MainMenuItem';
+import { MainMenuItem } from '../../../models/ui/MainMenuItem';
 import { NgForOf } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 

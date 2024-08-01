@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../common/header/header.component';
-import { SidebarComponent } from '../../common/sidebar/sidebar.component';
+import { HeaderComponent } from '../../components/common/header/header.component';
+import { SidebarComponent } from '../../components/common/sidebar/sidebar.component';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LogoComponent } from '../../components/common/logo/logo.component';
 import { MatIcon } from '@angular/material/icon';
-import { MainMenuComponent } from '../../main-menu/main-menu.component';
+import { MainMenuComponent } from '../../components/common/main-menu/main-menu.component';
 import { MainMenuItem } from '../../models/ui/MainMenuItem';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatButton } from '@angular/material/button';
