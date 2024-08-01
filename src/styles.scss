@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use 'sass:string';
+@import 'material-symbols';
+
+@include mat.core();
+
+
+$loan-recovery-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  ),
+  typography: (
+    brand-family: string.unquote('Figtree, "Helvetica Neue", sans-serif'),
+    plain-family: string.unquote('Figtree, "Helvetica Neue", sans-serif')
+  )
+));
+
+:root {
+  @include mat.all-component-themes($loan-recovery-theme);
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Figtree, "Helvetica Neue", sans-serif;
+}
+
+
+@include mat.typography-hierarchy($loan-recovery-theme);
+
+.mdc-notched-outline__notch {
+  border-right: none;
+}
