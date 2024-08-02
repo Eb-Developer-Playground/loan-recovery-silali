@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../../services/auth/auth.service';
@@ -10,6 +9,8 @@ import {
   loginUserSuccess,
   logoutUser,
   logoutUserSuccess,
+  registerUser,
+  registerUserSuccess,
 } from './auth.actions';
 
 @Injectable()
@@ -56,6 +57,25 @@ export class AuthEffects {
         tap((data) => this.router.navigate(['/login'])),
       ),
     { dispatch: false },
+  );
+
+  registerUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(registerUser),
+      exhaustMap((userData) =>
+        this.authService.registerUser(userData).pipe(
+          map((user) => registerUserSuccess(userData)),
+          catchError((error) => of()), //TODO add error handling
+        ),
+      ),
+    ),
+  );
+
+  registerUserSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(registerUserSuccess),
+      exhaustMap((userData) => of(loginUser({ data: userData }))),
+    ),
   );
 
   constructor(

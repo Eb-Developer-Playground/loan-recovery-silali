@@ -5,6 +5,8 @@ import {
   loginUserSuccess,
   logoutUser,
   logoutUserSuccess,
+  registerUser,
+  registerUserSuccess,
 } from './auth.actions';
 
 export interface AuthState {
@@ -38,5 +40,11 @@ export const authReducer = createReducer(
   }),
   on(logoutUserSuccess, () => {
     return initialState;
+  }),
+  on(registerUser, (state) => {
+    return { ...state, loading: true };
+  }),
+  on(registerUserSuccess, (state) => {
+    return state;
   }),
 );
