@@ -1,0 +1,19 @@
+<div class="drawer-container" [class.open]="open">
+  <div class="pointer-events-auto relative w-screen max-w-md">
+    <div class="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
+      <button mat-mini-fab	 type="button" class="">
+        <span class="sr-only">Close panel</span>
+        <mat-icon  class="material-symbols-outlined opacity-75">close</mat-icon>
+      </button>
+    </div>
+
+    <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+      <div class="px-4 sm:px-6">
+        <h5 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">Panel title</h5>
+      </div>
+      <div class="relative mt-6 flex-1 px-4 sm:px-6">
+        <ng-content/>
+      </div>
+    </div>
+  </div>
+</div>

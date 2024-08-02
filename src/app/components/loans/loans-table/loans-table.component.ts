@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -17,6 +17,8 @@ import { NgIf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { Loan } from '../../../models/loans/Loan';
 import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge.component';
+import { DrawerComponent } from '../../common/drawer/drawer.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-loans-table',
@@ -36,6 +38,7 @@ import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge
     MatButton,
     MatNoDataRow,
     LoanStatusBadgeComponent,
+    DrawerComponent,
   ],
   templateUrl: './loans-table.component.html',
   styleUrl: './loans-table.component.scss',
@@ -51,4 +54,18 @@ export class LoansTableComponent {
     'outstandingBalance',
     'status',
   ];
+
+  selectedItem = signal<Loan | null>(null);
+
+  handleSelected(loan: Loan): void {
+    if (this.selectedItem()?.id === loan.id) {
+      this.selectedItem.set(null);
+      return;
+    }
+    this.selectedItem.set(loan);
+  }
+
+  clearSelection(): void {
+    this.selectedItem.set(null);
+  }
 }
