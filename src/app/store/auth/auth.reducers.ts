@@ -1,6 +1,11 @@
 import { UserData } from '../../models/auth/UserData';
 import { createReducer, on } from '@ngrx/store';
-import { loginUser, loginUserSuccess } from './auth.actions';
+import {
+  loginUser,
+  loginUserSuccess,
+  logoutUser,
+  logoutUserSuccess,
+} from './auth.actions';
 
 export interface AuthState {
   user?: UserData | null;
@@ -17,14 +22,21 @@ export const initialState: AuthState = {
 export const authReducer = createReducer(
   initialState,
   on(loginUser, (state, { data }) => {
-    return { ...state, loading: true };
+    return { ...state, loading: true, otherThings: 'Biatch' };
   }),
   on(loginUserSuccess, (state, { user }) => {
     return {
       ...state,
-      user: user.body.user_data,
-      accessToken: user.body.access_token,
+      user: user.userData,
+      accessToken: user.accessToken,
       loading: false,
+      otherThings: 'bfdsfhdfk',
     };
+  }),
+  on(logoutUser, (state) => {
+    return { ...state, loading: true };
+  }),
+  on(logoutUserSuccess, () => {
+    return initialState;
   }),
 );

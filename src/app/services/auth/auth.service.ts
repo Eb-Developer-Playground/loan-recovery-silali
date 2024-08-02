@@ -12,4 +12,9 @@ export class AuthService {
   attemptLogin(loginFormData: LoginData): Observable<any> {
     return this.http.post('http://localhost:4400/api/login', loginFormData);
   }
+
+  attemptLogout() {
+    alert('Fucking with the API...');
+    return this.http.post('http://localhost:4400/api/logout', {});
+  }
 }

@@ -1,8 +1,6 @@
-import { UserData } from './UserData';
-
 export interface LoginResponseData {
-  status: number;
-  body: any;
+  accessToken: string;
+  userData: any;
 }
 export interface LoginData {
   email: string;
