@@ -16,7 +16,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FormLoadingBarComponent } from '../../common/form-loading-bar/form-loading-bar.component';
+import { FormLoadingBarComponent } from '../../components/common/form-loading-bar/form-loading-bar.component';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Store } from '@ngrx/store';
