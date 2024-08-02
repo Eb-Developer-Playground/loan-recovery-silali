@@ -22,7 +22,11 @@ import {
 } from '@ngrx/store-devtools';
 import { AuthEffects } from './store/auth/auth.effects';
 import * as fromAuth from './store/auth/auth.selectors';
-import { localStorageSyncReducer } from './store/persistance';
+import {
+  localStorageSyncReducer,
+  logger,
+  ROOT_REDUCERS,
+} from './store/persistance';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,21 +34,15 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideAnimationsAsync(),
-    provideStore(
-      {
-        router: routerReducer,
-        auth: authReducer,
+    provideStore(ROOT_REDUCERS, {
+      runtimeChecks: {
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
       },
-      {
-        runtimeChecks: {
-          strictStateSerializability: true,
-          strictActionSerializability: true,
-          strictActionWithinNgZone: true,
-          strictActionTypeUniqueness: true,
-        },
-        metaReducers: [localStorageSyncReducer],
-      },
-    ),
+      metaReducers: [localStorageSyncReducer, logger],
+    }),
     provideEffects([AuthEffects]),
     provideRouterStore(),
     provideStoreDevtools({

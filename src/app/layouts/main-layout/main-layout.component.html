@@ -1,20 +1,7 @@
 <div class="flex h-full">
-  <div class="hidden w-64 flex-shrink-0 py-12 lg:flex">
-    <div class="flex h-full w-full flex-col">
-      <div class="mb-8 flex h-5 shrink-0 items-center pl-10 pr-7 space-x-2">
-        <app-logo classNames="w-8 h-8"/>
-        <span class="font-bold">Loan Recovery</span>
-      </div>
-      <div class="px-4 flex-1">
-        <app-main-menu [menu]="menuItems"/>
-      </div>
-      <div class="px-4">
-
-      </div>
-    </div>
-  </div>
+  <app-sidebar class="hidden w-64 border-r flex-shrink-0 py-12 lg:flex" />
   <div class="relative mx-auto w-full max-w-200 overflow-auto">
-    <div class="relative min-h-screen px-10 pb-32 pt-6">
+    <div class="relative min-h-screen px-16 pb-32 pt-6">
       <router-outlet></router-outlet>
     </div>
   </div>

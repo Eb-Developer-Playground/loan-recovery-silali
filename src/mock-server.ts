@@ -29,6 +29,19 @@ export default function () {
           timing: 2000,
         },
       );
+      this.post(
+        '/api/register',
+        (schema, request) => {
+          return {
+            email: 'admin@loanrecovery.com',
+            name: 'Admin',
+            password: '123456',
+          };
+        },
+        {
+          timing: 2000,
+        },
+      );
       this.get(
         '/api/loans',
         (schema, request) => {

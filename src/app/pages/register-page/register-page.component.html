@@ -16,7 +16,11 @@
             <h3>Sign in</h3>
             <p>To continue to LoanRecovery</p>
           </div>
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Name</mat-label>
+              <input type="text" autocomplete="on" formControlName="name" matInput/>
+            </mat-form-field>
             <mat-form-field class="w-full" appearance="outline">
               <mat-label>Email</mat-label>
               <input type="email" autocomplete="on" formControlName="email" matInput/>
@@ -26,8 +30,8 @@
               <input autocomplete="on" type="password" formControlName="password" matInput/>
             </mat-form-field>
             <div class="flex-1 items-end justify-end mt-12 space-x-2">
-              <a mat-button routerLink="/register">Create Account</a>
-              <button class="float-right" mat-flat-button>Login</button>
+              <a mat-button routerLink="/register">Login</a>
+              <button class="float-right" mat-flat-button>Register Account</button>
             </div>
           </form>
         </div>
