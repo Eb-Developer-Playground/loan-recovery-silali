@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
@@ -11,6 +11,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class DrawerComponent {
   @Input() open: boolean = false;
-  @Input()
-  title: string = '';
+  @Input() title: string = '';
+
+  @Output() closeDrawer = new EventEmitter();
 }

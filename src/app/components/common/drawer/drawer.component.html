@@ -3,7 +3,7 @@
     <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
       <div class="px-4 sm:px-6 flex justify-between items-center">
         <h6 class="text-base font-semibold m-0 text-gray-900" id="slide-over-title">{{ title }}</h6>
-        <button  class="mb-3 border rounded-lg flex w-10 h-10 justify-center items-center">
+        <button (click)="closeDrawer.emit()"   class="mb-3 border rounded-lg flex w-10 h-10 justify-center items-center">
           <span  class="material-symbols-outlined opacity-75">close</span>
         </button>
       </div>

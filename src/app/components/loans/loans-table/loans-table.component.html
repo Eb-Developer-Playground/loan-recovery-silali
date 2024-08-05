@@ -1,41 +1,42 @@
 <div>
   <table mat-table [dataSource]="data">
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> # </th>
-      <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element">#{{element.id}} </td>
+      <th mat-header-cell *matHeaderCellDef> #</th>
+      <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element">#{{ element.id }}</td>
     </ng-container>
 
     <ng-container matColumnDef="borrower">
-      <th mat-header-cell *matHeaderCellDef> Borrower </th>
-      <td mat-cell  class="border-t-0 border-b-0" *matCellDef="let element"> {{element.borrower.firstName}} {{element.borrower.lastName}}</td>
+      <th mat-header-cell *matHeaderCellDef> Borrower</th>
+      <td mat-cell class="border-t-0 border-b-0"
+          *matCellDef="let element"> {{ element.borrower.firstName }} {{ element.borrower.lastName }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="loanAmount">
-      <th mat-header-cell *matHeaderCellDef> Amount </th>
-      <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{element.loanAmount}} </td>
+      <th mat-header-cell *matHeaderCellDef> Amount</th>
+      <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{ element.loanAmount }}</td>
     </ng-container>
 
     <ng-container matColumnDef="interestRate">
-      <th mat-header-cell *matHeaderCellDef> Interest Rate </th>
-      <td mat-cell  class="border-t-0 border-b-0" *matCellDef="let element"> {{element.interestRate}} </td>
+      <th mat-header-cell *matHeaderCellDef> Interest Rate</th>
+      <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{ element.interestRate }}</td>
     </ng-container>
 
     <ng-container matColumnDef="outstandingBalance">
-      <th mat-header-cell *matHeaderCellDef> Balance </th>
-      <td mat-cell  class="border-t-0 border-b-0" *matCellDef="let element"> {{element.outstandingBalance}} </td>
+      <th mat-header-cell *matHeaderCellDef> Balance</th>
+      <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{ element.outstandingBalance }}</td>
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell  class="border-t-0 border-b-0" *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef> Status</th>
+      <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element">
         <app-loan-status-badge [status]="element.status"/>
       </td>
     </ng-container>
 
 
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row (click)="handleSelected(row)"  *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row (click)="handleSelected(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" [attr.colspan]="displayedColumns.length">
         <div class="w-full flex items-center flex-col justify-center h-80">
@@ -45,7 +46,8 @@
       </td>
     </tr>
   </table>
-  <app-drawer title="Loan no. #{{ selectedItem()?.id }}" [open]="!!selectedItem()">
+  <app-drawer (closeDrawer)="selectedItem.set(null)" title="Loan no. #{{ selectedItem()?.id }}"
+              [open]="!!selectedItem()">
     <app-loan-details [loan]="selectedItem()"/>
   </app-drawer>
 </div>
