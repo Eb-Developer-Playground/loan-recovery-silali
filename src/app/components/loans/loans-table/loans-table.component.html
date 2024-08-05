@@ -1,4 +1,9 @@
 <div>
+  <div class="flex justify-end">
+    <button (click)="exportToCSV()" mat-button>
+      Export to CSV
+    </button>
+  </div>
   <table mat-table [dataSource]="data">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> #</th>

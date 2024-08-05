@@ -34,7 +34,15 @@
       </mat-card>
     </div>
   </div>
-  <div class="grid grid-cols-5 grid-rows-5 gap-4">
+  <div class="grid grid-cols-5  gap-4">
+    <div class="col-span-5">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <mat-card-title>Loan by type</mat-card-title>
+          <ngx-charts-advanced-pie-chart [results]="loanTypes"/>
+        </mat-card-content>
+      </mat-card>
+    </div>
     <div class="col-span-5">
       <mat-card appearance="outlined">
         <mat-card-content>
@@ -42,14 +50,6 @@
           <div class="pt-12">
             <app-monthly-stats-graph [data]="monthlyStats"/>
           </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-    <div class="col-span-5">
-      <mat-card appearance="outlined">
-        <mat-card-content>
-          <mat-card-title>Loan by type</mat-card-title>
-          <ngx-charts-advanced-pie-chart [results]="loanTypes"/>
         </mat-card-content>
       </mat-card>
     </div>
