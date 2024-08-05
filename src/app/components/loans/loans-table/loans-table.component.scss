@@ -3,9 +3,10 @@ table {
 }
 
 .mat-mdc-row .mat-mdc-cell {
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
+  //border-bottom: 1px solid transparent;
+  //border-top: 1px solid transparent;
   cursor: pointer;
+  @apply border-b-stone-300 border-t-0
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
