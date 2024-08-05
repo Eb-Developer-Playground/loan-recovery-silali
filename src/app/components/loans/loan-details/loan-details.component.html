@@ -1,0 +1,23 @@
+<div class="flex flex-col space-y-8">
+  <section>
+    <h6>Loan Details</h6>
+    <div class="flex flex-col space-y-4">
+      <div class="flex justify-between">
+        <span class="font-semibold">Borrower</span>
+        <span class="">{{ loan?.borrower?.firstName }} {{ loan?.borrower?.lastName }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="font-semibold">Acc No.</span>
+        <span class="">{{ loan?.borrower?.accountNumber }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span class="font-semibold">Status</span>
+        <app-loan-status-badge [status]="loan?.status || ''"/>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h6>Repayment Schedule</h6>
+  </section>
+
+</div>

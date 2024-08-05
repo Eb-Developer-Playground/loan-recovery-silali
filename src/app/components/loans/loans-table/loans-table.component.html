@@ -45,7 +45,7 @@
       </td>
     </tr>
   </table>
-  <app-drawer [open]="!!selectedItem()">
-
+  <app-drawer title="Loan no. #{{ selectedItem()?.id }}" [open]="!!selectedItem()">
+    <app-loan-details [loan]="selectedItem()"/>
   </app-drawer>
 </div>

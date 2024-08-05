@@ -19,6 +19,7 @@ import { Loan } from '../../../models/loans/Loan';
 import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge.component';
 import { DrawerComponent } from '../../common/drawer/drawer.component';
 import { BehaviorSubject } from 'rxjs';
+import { LoanDetailsComponent } from '../loan-details/loan-details.component';
 
 @Component({
   selector: 'app-loans-table',
@@ -39,6 +40,7 @@ import { BehaviorSubject } from 'rxjs';
     MatNoDataRow,
     LoanStatusBadgeComponent,
     DrawerComponent,
+    LoanDetailsComponent,
   ],
   templateUrl: './loans-table.component.html',
   styleUrl: './loans-table.component.scss',
