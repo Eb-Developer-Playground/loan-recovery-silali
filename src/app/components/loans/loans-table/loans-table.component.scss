@@ -10,18 +10,18 @@ table {
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-  @apply bg-zinc-50;
+  @apply bg-zinc-100;
   @apply transition-all;
 }
 
 .mat-mdc-row td:first-child {
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
+  border-top-left-radius:  9999px;
+  border-bottom-left-radius: 9999px;
 }
 
 .mat-mdc-row td:last-child {
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-top-right-radius:  9999px;
+  border-bottom-right-radius:  9999px;
 }
 
 .demo-row-is-clicked {

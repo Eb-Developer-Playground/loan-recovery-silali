@@ -1,8 +1,37 @@
 <div>
   <div class="flex justify-end">
-    <button (click)="exportToCSV()" mat-button>
-      Export to CSV
+    <button [matMenuTriggerFor]="statusesMenu" mat-button>
+      All Statuses
+      <mat-icon class="material-symbols-outlined">arrow_drop_down</mat-icon>
     </button>
+    <mat-menu #statusesMenu>
+      <div (click)="handleStatusSelected(null)"   mat-menu-item>
+        <mat-icon *ngIf="selectedStatus() == null else noCheck" class="material-symbols-outlined">check</mat-icon>
+        <ng-template #noCheck>
+          <span class="block w-6 h-6 bg-transparent"></span>
+        </ng-template>
+        <span class="capitalize flex px-2 space-x-2 items-center items">
+          <span>All Statuses</span>
+        </span>
+      </div>
+      <div (click)="handleStatusSelected(status)" *ngFor="let status of statuses"  mat-menu-item>
+        <mat-icon *ngIf="status == selectedStatus() else noCheck" class="material-symbols-outlined">check</mat-icon>
+        <ng-template #noCheck>
+          <span class="block w-6 h-6 bg-transparent"></span>
+        </ng-template>
+        <span class="capitalize flex px-2 space-x-2 items-center items">
+          <span>{{ status | snakeToSpace }}</span>
+        </span>
+      </div>
+    </mat-menu>
+    <button [matMenuTriggerFor]="exportMenu" mat-button>
+      <mat-icon class="material-symbols-outlined">inventory</mat-icon>
+      Export Data
+    </button>
+    <mat-menu #exportMenu>
+      <button (click)="exportToCSV()" mat-menu-item>To CSV</button>
+      <button (click)="exportToPdf()" mat-menu-item>To Pdf</button>
+    </mat-menu>
   </div>
   <table mat-table [dataSource]="data">
     <ng-container matColumnDef="id">

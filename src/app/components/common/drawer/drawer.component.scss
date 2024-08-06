@@ -4,6 +4,7 @@
   transition-property: transform;
   transition-timing-function: ease-out;
   transition-duration: 500ms;
+  z-index: 10
 }
 
 .drawer-container.open {
