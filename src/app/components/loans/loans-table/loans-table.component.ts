@@ -134,8 +134,4 @@ export class LoansTableComponent {
       }),
     );
   }
-
-  exportToPdf() {
-    this.dataExportService.toPdf(this.data);
-  }
 }
