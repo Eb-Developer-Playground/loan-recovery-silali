@@ -32,10 +32,10 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { SnakeToSpacePipe } from '../../../pipes/snake-to-space.pipe';
 import { Store } from '@ngrx/store';
-import { selectRoute } from '../../../store/router/router.selectors';
 import { selectSelectedLoan } from '../../../store/loans/loans.selector';
 import { deselectLoan, selectLoan } from '../../../store/loans/loans.actions';
 import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-loans-table',
@@ -66,6 +66,7 @@ import { Router } from '@angular/router';
     NgForOf,
     SnakeToSpacePipe,
     AsyncPipe,
+    MatPaginator,
   ],
   templateUrl: './loans-table.component.html',
   styleUrl: './loans-table.component.scss',

@@ -6,7 +6,7 @@ import { routes } from '../../app.routes';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 
-describe('authGuard', () => {
+describe('AuthGuard', () => {
   let guard: any;
   let store: Store;
   let router: Router;

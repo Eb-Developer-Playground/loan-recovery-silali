@@ -37,7 +37,11 @@ export const loansReducer = createReducer(
     const filteredLoans = state.loans.filter(
       (loan) => loan.status == filter.status,
     );
-    return { ...state, displayableLoans: filteredLoans };
+    if (filter.status) {
+      return { ...state, displayableLoans: filteredLoans };
+    }
+
+    return { ...state, displayableLoans: state.loans };
   }),
 
   on(selectLoan, (state, loan) => ({ ...state, selectedLoan: loan })),

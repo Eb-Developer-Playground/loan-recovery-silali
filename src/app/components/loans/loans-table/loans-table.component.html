@@ -79,6 +79,7 @@
       </td>
     </tr>
   </table>
+
   <app-drawer (closeDrawer)="handleDrawerClose()" title="Loan no. #Hello"
               [open]="!!(selectedItem | async)">
     <app-loan-details [loan]="(selectedItem | async)"/>
