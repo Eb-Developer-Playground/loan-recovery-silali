@@ -1,0 +1,17 @@
+<button [matMenuTriggerFor]="menu" class="flex items-center hover:bg-stone-100 rounded-full  px-1 py-1 profile-btn">
+  <span class="avatar">S</span>
+  <span class="material-symbols-rounded text-stone-800">keyboard_arrow_up</span>
+</button>
+<mat-menu #menu="matMenu">
+  <div class="flex px-3 space-x-2 py-3">
+    <span class="avatar">S</span>
+    <span class="flex flex-col">
+      <span class="font-bold">{{ userName() }}</span>
+      <span>{{ userEmail() }}</span>
+    </span>
+  </div>
+  <div class="border-t-stone-300 border">
+<!--    <a routerLink="/profile" class="px-3" mat-menu-item>Your Profile</a>-->
+    <button (click)="logout()" mat-menu-item>Sign Out</button>
+  </div>
+</mat-menu>

@@ -1,0 +1,41 @@
+<div
+  class="bg-slate-100 min-h-screen w-full mx-auto flex justify-center items-center"
+>
+  <div class="w-4/12">
+
+    <mat-card appearance="outlined" class="overflow-hidden">
+      <div class="h-16">
+        <app-form-loading-bar *ngIf="isLoading$ | async"/>
+      </div>
+      <mat-card-content>
+        <div class="pt-2">
+          <div class="mb-4">
+            <app-logo/>
+          </div>
+          <div class="mb-12">
+            <h3>Sign in</h3>
+            <p>To continue to LoanRecovery</p>
+          </div>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Name</mat-label>
+              <input type="text" autocomplete="on" formControlName="name" matInput/>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input type="email" autocomplete="on" formControlName="email" matInput/>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input autocomplete="on" type="password" formControlName="password" matInput/>
+            </mat-form-field>
+            <div class="flex-1 items-end justify-end mt-12 space-x-2">
+              <a mat-button routerLink="/register">Login</a>
+              <button class="float-right" mat-flat-button>Register Account</button>
+            </div>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

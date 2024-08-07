@@ -1,0 +1,57 @@
+<div>
+  <h3>Dashboard</h3>
+  <div class="grid grid-cols-4 grid-rows-1 gap-4 mb-8">
+    <div class="col-span-1">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <mat-card-title>1500</mat-card-title>
+          <p>Total Loans Issued</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-span-1">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <mat-card-title>910</mat-card-title>
+          <p>Total Loans Recovered</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-span-1">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <mat-card-title>23,000,700</mat-card-title>
+          <p>Total Amount Issued</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-span-1">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <mat-card-title>1,900,000</mat-card-title>
+          <p>Total Amount Recovered</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="grid grid-cols-5  gap-4">
+    <div class="col-span-5">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <mat-card-title>Loan by type</mat-card-title>
+          <ngx-charts-advanced-pie-chart [results]="loanTypes"/>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-span-5">
+      <mat-card appearance="outlined">
+        <mat-card-content>
+          <mat-card-title>Monthly Recovered Loans</mat-card-title>
+          <div class="pt-12">
+            <ngx-charts-bar-vertical [xAxis]="true" [yAxis]="true" [results]="monthlyStats" />
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

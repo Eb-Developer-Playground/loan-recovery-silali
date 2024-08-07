@@ -1,0 +1,4 @@
+<div>
+  <h3>Loans</h3>
+  <app-loans-table (statusSelected)="handleStatusFilter($event)" [data]="(displayableLoans | async) || []"/>
+</div>

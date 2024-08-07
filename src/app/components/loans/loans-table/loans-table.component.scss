@@ -1,0 +1,27 @@
+table {
+  background: white;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  cursor: pointer;
+  @apply border-b-stone-300 border-t-0
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  @apply bg-zinc-100;
+  @apply transition-all;
+}
+
+.mat-mdc-row td:first-child {
+  border-top-left-radius:  9999px;
+  border-bottom-left-radius: 9999px;
+}
+
+.mat-mdc-row td:last-child {
+  border-top-right-radius:  9999px;
+  border-bottom-right-radius:  9999px;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
