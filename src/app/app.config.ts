@@ -27,6 +27,8 @@ import {
   logger,
   ROOT_REDUCERS,
 } from './store/persistance';
+import { RouterEffects } from './store/router/router.effects';
+import { LoansEffects } from './store/loans/loans.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -43,7 +45,7 @@ export const appConfig: ApplicationConfig = {
       },
       metaReducers: [localStorageSyncReducer, logger],
     }),
-    provideEffects([AuthEffects]),
+    provideEffects([AuthEffects, RouterEffects, LoansEffects]),
     provideRouterStore(),
     provideStoreDevtools({
       maxAge: 25,

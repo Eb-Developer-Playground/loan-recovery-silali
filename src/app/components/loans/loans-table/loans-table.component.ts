@@ -31,6 +31,8 @@ import { DataExportService } from '../../../services/common/data-export.service'
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { SnakeToSpacePipe } from '../../../pipes/snake-to-space.pipe';
+import { Store } from '@ngrx/store';
+import { selectRoute } from '../../../store/router/router.selectors';
 
 @Component({
   selector: 'app-loans-table',
@@ -68,6 +70,18 @@ export class LoansTableComponent {
   @Input() data: Loan[] = [];
   @Output() statusSelected = new EventEmitter<LoanStatus | null>();
 
+  currentLoanId: string | null = null;
+
+  constructor(
+    private dataExportService: DataExportService,
+    private injector: Injector,
+    private store: Store,
+  ) {
+    this.selectedRoute.subscribe((routeData) => {
+      this.currentLoanId = routeData.queryParams['loanId'];
+    });
+  }
+
   displayedColumns: string[] = [
     'id',
     'borrower',
@@ -83,6 +97,8 @@ export class LoansTableComponent {
 
   selectedItem = signal<Loan | null>(null);
 
+  selectedRoute = this.store.select(selectRoute);
+
   private statusEffect = effect(
     () => {
       this.statusSelected.emit(this.selectedStatus());
@@ -92,17 +108,17 @@ export class LoansTableComponent {
     },
   );
 
-  constructor(
-    private dataExportService: DataExportService,
-    private injector: Injector,
-  ) {}
-
   handleSelected(loan: Loan): void {
     if (this.selectedItem()?.id === loan.id) {
       this.selectedItem.set(null);
       return;
     }
+
     this.selectedItem.set(loan);
+  }
+
+  selectLoanById(loanId: string) {
+    return this.data.filter((loan) => loan.id === loanId).at(0);
   }
 
   handleStatusSelected(status: LoanStatus | null): void {
@@ -110,10 +126,6 @@ export class LoansTableComponent {
       this.selectedStatus.set(null);
     }
     this.selectedStatus.set(status);
-  }
-
-  clearSelection(): void {
-    this.selectedItem.set(null);
   }
 
   exportToCSV() {

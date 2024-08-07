@@ -24,7 +24,7 @@ export const initialState: AuthState = {
 export const authReducer = createReducer(
   initialState,
   on(loginUser, (state, { data }) => {
-    return { ...state, loading: true, otherThings: 'Biatch' };
+    return { ...state, loading: true };
   }),
   on(loginUserSuccess, (state, { user }) => {
     return {
@@ -32,7 +32,6 @@ export const authReducer = createReducer(
       user: user.userData,
       accessToken: user.accessToken,
       loading: false,
-      otherThings: 'bfdsfhdfk',
     };
   }),
   on(logoutUser, (state) => {

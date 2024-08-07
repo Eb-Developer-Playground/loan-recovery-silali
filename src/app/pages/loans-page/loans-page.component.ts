@@ -1,41 +1,42 @@
 import { Component, signal } from '@angular/core';
 import { LoansTableComponent } from '../../components/loans/loans-table/loans-table.component';
-import { HttpClient } from '@angular/common/http';
-import { LoanService } from '../../services/loans/loan.service';
-import { BehaviorSubject } from 'rxjs';
 import { Loan, LoanStatus } from '../../models/loans/Loan';
 import { AsyncPipe } from '@angular/common';
+import { ViewLoanDetailsWrapperComponent } from '../../components/loans/view-loan-details-wrapper/view-loan-details-wrapper.component';
+import { RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { filterLoans, getLoans } from '../../store/loans/loans.actions';
+import {
+  selectDisplayableLoans,
+  selectLoansState,
+} from '../../store/loans/loans.selector';
 
 @Component({
   selector: 'app-loans-page',
   standalone: true,
-  imports: [LoansTableComponent, AsyncPipe],
+  imports: [
+    LoansTableComponent,
+    AsyncPipe,
+    ViewLoanDetailsWrapperComponent,
+    RouterOutlet,
+  ],
   templateUrl: './loans-page.component.html',
   styleUrl: './loans-page.component.scss',
 })
 export class LoansPageComponent {
-  constructor(private loanService: LoanService) {}
+  constructor(private store: Store) {}
 
-  loans = signal<Loan[]>([]);
-
-  displayableLoans = signal<Loan[]>([]);
+  displayableLoans = this.store.select(selectDisplayableLoans);
 
   ngOnInit() {
-    this.loanService.fetchLoans().subscribe({
-      next: (data) => {
-        this.loans.set(data as Loan[]);
-        this.displayableLoans.set(data as Loan[]);
-      },
-    });
+    this.store.dispatch(getLoans());
   }
 
   handleStatusFilter($event: LoanStatus | null) {
-    if ($event == null) {
-      this.displayableLoans.set(this.loans());
-      return;
-    }
-    return this.displayableLoans.set(
-      this.loans().filter((loan) => loan.status === $event),
+    this.store.dispatch(
+      filterLoans({
+        status: $event,
+      }),
     );
   }
 }

@@ -5,6 +5,7 @@ import { authGuard } from './guards/auth/auth.guard';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { LoansPageComponent } from './pages/loans-page/loans-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { ViewLoanDetailsWrapperComponent } from './components/loans/view-loan-details-wrapper/view-loan-details-wrapper.component';
 
 export const routes: Routes = [
   {
@@ -13,7 +14,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: '', component: HomePageComponent, pathMatch: 'full' },
-      { path: 'loans', component: LoansPageComponent, pathMatch: 'full' },
+      {
+        path: 'loans',
+        component: LoansPageComponent,
+        pathMatch: 'prefix',
+        children: [{ path: ':id', component: ViewLoanDetailsWrapperComponent }],
+      },
     ],
   },
   { path: 'login', component: LoginPageComponent },

@@ -1,8 +1,9 @@
-import { Action, ActionReducer, ActionReducerMap, State } from '@ngrx/store';
+import { Action, ActionReducer, ActionReducerMap } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
-import { authReducer, AuthState } from './auth/auth.reducers';
+import { authReducer } from './auth/auth.reducers';
 import { InjectionToken } from '@angular/core';
 import { routerReducer } from '@ngrx/router-store';
+import { loansReducer } from './loans/loans.reducers';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>,
@@ -30,6 +31,7 @@ export const ROOT_REDUCERS = new InjectionToken<ActionReducerMap<any, Action>>(
     factory: () => ({
       router: routerReducer,
       auth: authReducer,
+      loans: loansReducer,
     }),
   },
 );
