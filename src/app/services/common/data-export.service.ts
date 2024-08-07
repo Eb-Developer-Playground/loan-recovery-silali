@@ -13,6 +13,4 @@ export class DataExportService {
     const csv = generateCsv(this.config)(data);
     return download(this.config)(csv);
   }
-
-  toPdf(data: any) {}
 }
