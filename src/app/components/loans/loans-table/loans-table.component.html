@@ -80,8 +80,8 @@
       </td>
     </tr>
   </table>
-  <app-drawer (closeDrawer)="selectedItem.set(null)" title="Loan no. #{{ selectedItem()?.id }}"
-              [open]="!!selectedItem()">
-    <app-loan-details [loan]="selectedItem()"/>
+  <app-drawer (closeDrawer)="handleDrawerClose()" title="Loan no. #Hello"
+              [open]="!!(selectedItem | async)">
+    <app-loan-details [loan]="(selectedItem | async)"/>
   </app-drawer>
 </div>

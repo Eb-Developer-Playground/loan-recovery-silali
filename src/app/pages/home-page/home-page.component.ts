@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { MonthlyStatsGraphComponent } from '../../loans/monthly-stats-graph/monthly-stats-graph.component';
-import { PieChartModule } from '@swimlane/ngx-charts';
+import { NgxChartsModule, PieChartModule } from '@swimlane/ngx-charts';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 
@@ -8,16 +7,15 @@ import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
   selector: 'app-home-page',
   standalone: true,
   imports: [
-    MonthlyStatsGraphComponent,
     PieChartModule,
     MatGridList,
     MatGridTile,
     MatCard,
     MatCardTitle,
     MatCardContent,
+    NgxChartsModule,
   ],
   templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
   monthlyStats = [

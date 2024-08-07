@@ -9,7 +9,6 @@ import { UserProfileButtonComponent } from '../user-profile-button/user-profile-
   standalone: true,
   imports: [LogoComponent, MainMenuComponent, UserProfileButtonComponent],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
   menuItems: MainMenuItem[] = [

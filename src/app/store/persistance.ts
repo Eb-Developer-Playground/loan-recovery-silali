@@ -8,7 +8,9 @@ import { loansReducer } from './loans/loans.reducers';
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>,
 ): ActionReducer<any> {
-  return localStorageSync({ keys: ['auth'], rehydrate: true })(reducer);
+  return localStorageSync({ keys: ['auth', 'loans'], rehydrate: true })(
+    reducer,
+  );
 }
 
 // console.log all actions

@@ -7,7 +7,6 @@ import { MatIconRegistry } from '@angular/material/icon';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'loan-recovery';

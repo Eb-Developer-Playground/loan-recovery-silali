@@ -7,8 +7,7 @@ import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge
   standalone: true,
   imports: [LoanStatusBadgeComponent],
   templateUrl: './loan-details.component.html',
-  styleUrl: './loan-details.component.scss',
 })
 export class LoanDetailsComponent {
-  @Input() loan: Loan | null = null;
+  @Input() loan: Loan | null | undefined = null;
 }

@@ -29,6 +29,5 @@ import { SidebarComponent } from '../../components/common/sidebar/sidebar.compon
     SidebarComponent,
   ],
   templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.scss',
 })
 export class MainLayoutComponent {}

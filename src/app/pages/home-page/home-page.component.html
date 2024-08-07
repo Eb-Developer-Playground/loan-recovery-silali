@@ -48,7 +48,7 @@
         <mat-card-content>
           <mat-card-title>Monthly Recovered Loans</mat-card-title>
           <div class="pt-12">
-            <app-monthly-stats-graph [data]="monthlyStats"/>
+            <ngx-charts-bar-vertical [xAxis]="true" [yAxis]="true" [results]="monthlyStats" />
           </div>
         </mat-card-content>
       </mat-card>

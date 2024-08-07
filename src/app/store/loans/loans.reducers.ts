@@ -1,11 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 import { Loan } from '../../models/loans/Loan';
 import {
+  deselectLoan,
   filterLoans,
   filterLoansSuccess,
   getLoans,
   getLoansSuccess,
+  selectLoan,
 } from './loans.actions';
+import { filter } from 'rxjs';
 
 export interface LoansState {
   loans: Loan[];
@@ -36,4 +39,7 @@ export const loansReducer = createReducer(
     );
     return { ...state, displayableLoans: filteredLoans };
   }),
+
+  on(selectLoan, (state, loan) => ({ ...state, selectedLoan: loan })),
+  on(deselectLoan, (state) => ({ ...state, selectedLoan: null })),
 );

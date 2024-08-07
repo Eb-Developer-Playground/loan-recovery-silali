@@ -20,7 +20,7 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { MatButton, MatFabButton } from '@angular/material/button';
 import { Loan, LoanStatus } from '../../../models/loans/Loan';
 import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge.component';
@@ -33,6 +33,9 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { SnakeToSpacePipe } from '../../../pipes/snake-to-space.pipe';
 import { Store } from '@ngrx/store';
 import { selectRoute } from '../../../store/router/router.selectors';
+import { selectSelectedLoan } from '../../../store/loans/loans.selector';
+import { deselectLoan, selectLoan } from '../../../store/loans/loans.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loans-table',
@@ -62,6 +65,7 @@ import { selectRoute } from '../../../store/router/router.selectors';
     MatCheckbox,
     NgForOf,
     SnakeToSpacePipe,
+    AsyncPipe,
   ],
   templateUrl: './loans-table.component.html',
   styleUrl: './loans-table.component.scss',
@@ -70,17 +74,12 @@ export class LoansTableComponent {
   @Input() data: Loan[] = [];
   @Output() statusSelected = new EventEmitter<LoanStatus | null>();
 
-  currentLoanId: string | null = null;
-
   constructor(
     private dataExportService: DataExportService,
     private injector: Injector,
     private store: Store,
-  ) {
-    this.selectedRoute.subscribe((routeData) => {
-      this.currentLoanId = routeData.queryParams['loanId'];
-    });
-  }
+    private router: Router,
+  ) {}
 
   displayedColumns: string[] = [
     'id',
@@ -95,9 +94,7 @@ export class LoansTableComponent {
 
   selectedStatus = signal<LoanStatus | null>(null);
 
-  selectedItem = signal<Loan | null>(null);
-
-  selectedRoute = this.store.select(selectRoute);
+  selectedItem = this.store.select(selectSelectedLoan);
 
   private statusEffect = effect(
     () => {
@@ -109,16 +106,12 @@ export class LoansTableComponent {
   );
 
   handleSelected(loan: Loan): void {
-    if (this.selectedItem()?.id === loan.id) {
-      this.selectedItem.set(null);
-      return;
-    }
-
-    this.selectedItem.set(loan);
+    this.router.navigate(['/loans', loan.id]);
+    this.store.dispatch(selectLoan(loan));
   }
 
-  selectLoanById(loanId: string) {
-    return this.data.filter((loan) => loan.id === loanId).at(0);
+  handleDrawerClose() {
+    this.store.dispatch(deselectLoan());
   }
 
   handleStatusSelected(status: LoanStatus | null): void {

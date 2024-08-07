@@ -21,7 +21,6 @@ import {
     RouterOutlet,
   ],
   templateUrl: './loans-page.component.html',
-  styleUrl: './loans-page.component.scss',
 })
 export class LoansPageComponent {
   constructor(private store: Store) {}

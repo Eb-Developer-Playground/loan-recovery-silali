@@ -13,7 +13,7 @@ export const selectDisplayableLoans = createSelector(
   (state: LoansState) => state.displayableLoans,
 );
 
-export const loadingLoansSelector = createSelector(
+export const selectSelectedLoan = createSelector(
   selectLoansState,
-  (state: LoansState) => state.loading,
+  (state: LoansState) => state.selectedLoan,
 );

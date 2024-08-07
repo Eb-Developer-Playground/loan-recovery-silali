@@ -48,7 +48,6 @@ import { skip } from 'rxjs';
     RouterLink,
   ],
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss',
 })
 export class LoginPageComponent {
   constructor(

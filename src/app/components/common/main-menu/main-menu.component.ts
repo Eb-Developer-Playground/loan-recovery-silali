@@ -8,7 +8,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   standalone: true,
   imports: [NgForOf, RouterLink, RouterLinkActive],
   templateUrl: './main-menu.component.html',
-  styleUrl: './main-menu.component.scss',
 })
 export class MainMenuComponent {
   @Input() menu: MainMenuItem[] = [];
