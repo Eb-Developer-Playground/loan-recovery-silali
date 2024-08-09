@@ -9,6 +9,9 @@ import { MatButton } from '@angular/material/button';
 import { MatChipAvatar } from '@angular/material/chips';
 import { MatCardAvatar } from '@angular/material/card';
 import { SidebarComponent } from '../../components/common/sidebar/sidebar.component';
+import { Store } from '@ngrx/store';
+import { selectSidebarIsOpen } from '../../store/sidebar/sidebar.selectors';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-main-layout',
@@ -27,7 +30,13 @@ import { SidebarComponent } from '../../components/common/sidebar/sidebar.compon
     MatChipAvatar,
     MatCardAvatar,
     SidebarComponent,
+    AsyncPipe,
   ],
   templateUrl: './main-layout.component.html',
+  styleUrl: './main-layout.component.scss',
 })
-export class MainLayoutComponent {}
+export class MainLayoutComponent {
+  selectedSidebarState = this.store.select(selectSidebarIsOpen);
+
+  constructor(private store: Store) {}
+}

@@ -1,5 +1,7 @@
 <div class="flex h-full">
-  <app-sidebar class="hidden w-64 border-r flex-shrink-0 py-12 lg:flex" />
+  <app-sidebar [class.open]="selectedSidebarState | async"
+               [class.closed]="!(selectedSidebarState | async)"
+               class="fixed z-50 bg-white w-full h-full lg:relative md:w-80 lg:w-64 border-r flex-shrink-0 py-12 lg:flex main-sidebar"/>
   <div class="relative mx-auto w-full max-w-200 overflow-auto">
     <div class="relative min-h-screen px-4 md:px-8 lg:px-16 pb-32 pt-6">
       <router-outlet></router-outlet>

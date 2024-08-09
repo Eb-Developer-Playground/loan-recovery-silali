@@ -4,6 +4,7 @@ import { authReducer } from './auth/auth.reducers';
 import { InjectionToken } from '@angular/core';
 import { routerReducer } from '@ngrx/router-store';
 import { loansReducer } from './loans/loans.reducers';
+import { sidebarReducer } from './sidebar/sidebar.reducers';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>,
@@ -34,6 +35,7 @@ export const ROOT_REDUCERS = new InjectionToken<ActionReducerMap<any, Action>>(
       router: routerReducer,
       auth: authReducer,
       loans: loansReducer,
+      sidebar: sidebarReducer,
     }),
   },
 );
