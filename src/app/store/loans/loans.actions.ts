@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Loan, LoanStatus } from '../../models/loans/Loan';
+import { CreateLoanFormData } from '../../models/loans/CreateLoanFormData';
 
 export const enum LoanActions {
   GET_LOANS = '[Loan] Get All Loans',
@@ -8,6 +9,8 @@ export const enum LoanActions {
   FILTER_LOAN_SUCCESS = '[Loan] Filter Loans Success',
   SELECT_LOAN = '[Loan] Select Loan',
   DESELECT_LOAN = '[Loan] Deselect Loan',
+  CREATE_LOAN = '[Loan] Create Loan',
+  CREATE_LOAN_SUCCESS = '[Loan] Create Loan Success',
 }
 
 interface LoanFilters {
@@ -33,3 +36,10 @@ export const filterLoansSuccess = createAction(
 export const selectLoan = createAction(LoanActions.SELECT_LOAN, props<Loan>());
 
 export const deselectLoan = createAction(LoanActions.DESELECT_LOAN);
+
+export const createLoan = createAction(
+  LoanActions.CREATE_LOAN,
+  props<{ data: CreateLoanFormData }>(),
+);
+
+export const createLoanSuccess = createAction(LoanActions.CREATE_LOAN_SUCCESS);

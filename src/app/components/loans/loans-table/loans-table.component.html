@@ -1,8 +1,8 @@
 <div>
-  <div class="flex justify-end">
+  <div class="flex space-x-2 justify-end">
     <button [matMenuTriggerFor]="statusesMenu" mat-button>
       All Statuses
-      <mat-icon class="material-symbols-outlined">arrow_drop_down</mat-icon>
+      <mat-icon iconPositionEnd class="material-symbols-rounded">arrow_drop_down</mat-icon>
     </button>
     <mat-menu #statusesMenu>
       <div (click)="handleStatusSelected(null)"   mat-menu-item>
@@ -25,12 +25,16 @@
       </div>
     </mat-menu>
     <button [matMenuTriggerFor]="exportMenu" mat-button>
-      <mat-icon class="material-symbols-outlined">inventory</mat-icon>
+      <mat-icon class="material-symbols-rounded">inventory</mat-icon>
       Export Data
     </button>
     <mat-menu #exportMenu>
       <button (click)="exportToCSV()" mat-menu-item>To CSV</button>
     </mat-menu>
+    <button (click)="handleAddLoan()" mat-flat-button>
+      <mat-icon class="material-symbols-rounded">add</mat-icon>
+      Add Loan
+    </button>
   </div>
   <table mat-table [dataSource]="data">
     <ng-container matColumnDef="id">

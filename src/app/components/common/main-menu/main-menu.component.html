@@ -1,7 +1,7 @@
 <div class="flex-col flex">
   <a *ngFor="let menuItem of menu"
      [routerLink]="menuItem.path" routerLinkActive="bg-lr-200"
-     class="menu-item flex items-center rounded-full space-x-3 py-2 px-2 pl-4" [routerLinkActiveOptions]="{ exact: true }">
+     class="menu-item flex items-center rounded-full space-x-3 py-2 px-2 pl-4" [routerLinkActiveOptions]="{ exact: menuItem.shouldMatchExact }">
     <span class="w-6 h-6 material-symbols-rounded text-slate-600">{{ menuItem.icon }}</span>
     <span class="font-semibold text-sm">{{ menuItem.label }}</span>
   </a>

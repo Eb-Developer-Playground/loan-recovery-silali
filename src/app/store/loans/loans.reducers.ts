@@ -1,6 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import { Loan } from '../../models/loans/Loan';
 import {
+  createLoan,
+  createLoanSuccess,
   deselectLoan,
   filterLoans,
   filterLoansSuccess,
@@ -15,6 +17,7 @@ export interface LoansState {
   loading: boolean;
   displayableLoans: Loan[];
   selectedLoan?: Loan | null;
+  isUpdatingLoans: boolean;
 }
 
 const initialState: LoansState = {
@@ -22,6 +25,7 @@ const initialState: LoansState = {
   loading: false,
   displayableLoans: [],
   selectedLoan: null,
+  isUpdatingLoans: false,
 };
 
 export const loansReducer = createReducer(
@@ -46,4 +50,7 @@ export const loansReducer = createReducer(
 
   on(selectLoan, (state, loan) => ({ ...state, selectedLoan: loan })),
   on(deselectLoan, (state) => ({ ...state, selectedLoan: null })),
+
+  on(createLoan, (state) => ({ ...state, isUpdatingLoans: true })),
+  on(createLoanSuccess, (state) => ({ ...state, isUpdatingLoans: false })),
 );

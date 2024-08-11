@@ -135,4 +135,8 @@ export class LoansTableComponent {
       }),
     );
   }
+
+  handleAddLoan() {
+    this.router.navigate(['/loans', 'u', 'create']);
+  }
 }

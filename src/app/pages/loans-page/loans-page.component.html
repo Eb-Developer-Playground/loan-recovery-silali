@@ -1,4 +1,4 @@
 <div>
-  <h3>Loans</h3>
+  <app-page-header title="Loans"/>
   <app-loans-table (statusSelected)="handleStatusFilter($event)" [data]="(displayableLoans | async) || []"/>
 </div>

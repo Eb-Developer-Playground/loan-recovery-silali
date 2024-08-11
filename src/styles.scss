@@ -51,7 +51,7 @@ body {
 }
 
 .lr-card {
-  @apply border-none bg-lr-100 py-0;
+  @apply border-none bg-lr-100 py-0 shadow-none;
 }
 
 .advanced-pie-legend .total-value {

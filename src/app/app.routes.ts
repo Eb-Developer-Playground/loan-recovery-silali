@@ -6,6 +6,7 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { LoansPageComponent } from './pages/loans-page/loans-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ViewLoanDetailsWrapperComponent } from './components/loans/view-loan-details-wrapper/view-loan-details-wrapper.component';
+import { CreateLoanPageComponent } from './components/pages/create-loan-page/create-loan-page.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
         pathMatch: 'prefix',
         children: [{ path: ':id', component: ViewLoanDetailsWrapperComponent }],
       },
+      { path: 'loans/u/create', component: CreateLoanPageComponent },
     ],
   },
   { path: 'login', component: LoginPageComponent },
