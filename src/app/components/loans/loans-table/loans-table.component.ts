@@ -127,7 +127,7 @@ export class LoansTableComponent {
       this.data.map((loan) => {
         return {
           loanNumber: loan.id,
-          borrower: `${loan.borrower.firstName} ${loan.borrower.lastName}`,
+          borrower: `${loan.borrower.fullName}`,
           amount: `${loan.loanAmount}`,
           status: loan.status,
           interest: `${loan.interestRate}`,

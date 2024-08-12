@@ -1,0 +1,115 @@
+<div class="flex flex-col lg:flex-row lg:space-x-6 space-y-4 lg:space-y-0">
+  <div class="w-full lg:w-6/12">
+    <form (ngSubmit)="handleIssueLoan()" class="relative" [formGroup]="createLoanForm">
+      <div class="relative">
+        <div *ngIf="isUpdatingLoans | async" class="absolute right-0 w-full h-full flex justify-center items-center z-10"
+             style="background: rgba(255,255,255,0.6)">
+          <mat-spinner></mat-spinner>
+        </div>
+        <section>
+          <p class="section-title">Borrower Info</p>
+          <div class="flex space-x-6">
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Select a Borrower</mat-label>
+              <input
+                type="text"
+                placeholder="Select Borrower"
+                aria-label="Number"
+                matInput
+                formControlName="borrower"
+                [formControl]="autocompleteFormControl"
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete (optionSelected)="handleBorrowerSelected($event)" [displayWith]="displayFn"
+                                #auto="matAutocomplete">
+                <mat-option
+                  *ngFor="let borrower of filteredOptions | async; trackBy: trackFn"
+                  [value]="borrower"
+                >{{ borrower.fullName }}
+                </mat-option
+                >
+              </mat-autocomplete>
+              <!--            <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>-->
+            </mat-form-field>
+          </div>
+        </section>
+        <p class="section-title">Loan Details</p>
+        <section class="flex flex-col space-y-4">
+          <div>
+            <div class="flex md:space-x-6 md:flex-row flex-col">
+              <mat-form-field class="w-full md:w-1/2" appearance="outline">
+                <mat-label>Loan Amount</mat-label>
+                <input type="number"
+                       formControlName="amount"
+                       step="any"
+                       placeholder="Loan Amount"
+                       aria-label="Number"
+                       matInput>
+              </mat-form-field>
+              <mat-form-field class="w-full md:w-1/2" appearance="outline">
+                <mat-label>Interest Rate</mat-label>
+                <input type="number"
+                       formControlName="interestRate"
+                       max="100"
+                       min="0"
+                       step="any"
+                       placeholder="Interest Rate"
+                       aria-label="Number"
+                       matInput>
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <div class="flex md:space-x-6 md:flex-row flex-col">
+              <mat-form-field class="w-full md:w-1/2" appearance="outline">
+                <mat-label>Payment Period</mat-label>
+                <mat-select formControlName="paymentPeriod">
+                  <mat-option [value]="1">1 Year</mat-option>
+                  <mat-option [value]="2">2 Years</mat-option>
+                  <mat-option [value]="3">3 Years</mat-option>
+                  <mat-option [value]="4">4 Years</mat-option>
+                  <mat-option [value]="5">5 Years</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="w-full md:w-1/2" appearance="outline">
+                <mat-label>Payment Schedule</mat-label>
+                <mat-select formControlName="paymentSchedule">
+                  <mat-option value="monthly">Monthly</mat-option>
+                  <mat-option value="quarterly">Quarterly</mat-option>
+                  <mat-option value="bi-annually">Bi-Annually</mat-option>
+                  <mat-option value="annually">Annually</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div *ngIf="loanRepaymentDetails" class="grid bg-lr-100 rounded-xl grid-cols-1 divide-y">
+        <div class="flex justify-between py-4 px-4">
+          <span>Amount</span>
+          <span class="font-semibold">{{ loanRepaymentDetails.total.toFixed(2) }}</span>
+        </div>
+        <div class="flex justify-between py-4 px-4">
+          <span>Interest</span>
+          <span class="font-semibold">{{ loanRepaymentDetails.interest.toFixed(2) }}</span>
+        </div>
+        <div class="flex justify-between py-4 px-4">
+          <span>Installments</span>
+          <span class="font-semibold">{{ loanRepaymentDetails.installments }}</span>
+        </div>
+        <div class="flex justify-between py-4 px-4">
+          <span>Amount per Installment</span>
+          <span class="font-semibold">{{ loanRepaymentDetails.amountPerInstallment.toFixed(2) }}</span>
+        </div>
+      </div>
+      <section class="flex justify-end mt-8">
+        <button [disabled]="isUpdatingLoans | async"
+                mat-flat-button>{{ (isUpdatingLoans|async) ? 'Adding Loan...' : 'Add Loan' }}
+        </button>
+      </section>
+    </form>
+  </div>
+  <div class="w-full lg:w-6/12">
+    <app-selected-borrower-display [borrower]="createLoanForm.get('borrower')?.value"/>
+  </div>
+</div>

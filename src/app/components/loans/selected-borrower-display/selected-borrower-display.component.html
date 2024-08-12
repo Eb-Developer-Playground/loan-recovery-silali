@@ -1,0 +1,52 @@
+<div>
+  <div class="" *ngIf="borrower;else emptyState">
+    <div
+      class="w-20 h-20 bg-green-400 text-white rounded-full font-semibold text-2xl flex justify-center items-center">{{ borrower.fullName[0] }}
+    </div>
+    <hr class="my-4">
+    <p class="font-semibold">{{ borrower.fullName }}</p>
+    <p class="text-sm">A/C No. <span>{{ borrower.accountNumber }}</span></p>
+    <hr class="my-4">
+    <div class="flex flex-col space-y-4">
+      <div class="flex justify-between">
+        <span>Status</span>
+        <span class="font-semibold">{{ borrower.status }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Credit Score</span>
+        <span class="font-semibold">{{ borrower.creditScore }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Loan Count</span>
+        <span class="font-semibold">{{ borrower.loanCount }}</span>
+      </div>
+      <div class="flex justify-between">
+        <span>Joined On</span>
+        <span class="font-semibold">{{ borrower.createdAt }}</span>
+      </div>
+      <div class="p-4 bg-lr-200 rounded-lg">
+        <p>{{ borrower.notes }}</p>
+      </div>
+    </div>
+
+  </div>
+  <ng-template #emptyState>
+    <div class="w-full flex items-center flex-col justify-center h-80">
+      <span class="material-symbols-rounded text-stone-400 text-7xl">account_circle</span>
+      <p class="text-lg mb-0">Select a borrower to see their details</p>
+    </div>
+  </ng-template>
+</div>
+
+<!--id: string;-->
+<!--fullName: string;-->
+<!--accountNumber: string;-->
+<!--status: BorrowerStatus;-->
+<!--creditScore: number;-->
+<!--email?: string;-->
+<!--phoneNumber?: string;-->
+<!--loanCount: number;-->
+<!--createdAt: Date;-->
+<!--lastUpdated: Date;-->
+<!--address: string;-->
+<!--notes: string;-->
