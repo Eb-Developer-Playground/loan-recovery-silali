@@ -1,4 +1,4 @@
-enum BorrowerStatus {
+export const enum BorrowerStatus {
   Active = 'active',
   InGoodStanding = 'in_good_standing',
   PendingVerification = 'pending_verification',

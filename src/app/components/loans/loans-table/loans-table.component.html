@@ -5,7 +5,7 @@
       <mat-icon iconPositionEnd class="material-symbols-rounded">arrow_drop_down</mat-icon>
     </button>
     <mat-menu #statusesMenu>
-      <div (click)="handleStatusSelected(null)"   mat-menu-item>
+      <div (click)="handleStatusSelected(null)" mat-menu-item>
         <mat-icon *ngIf="selectedStatus() == null else noCheck" class="material-symbols-outlined">check</mat-icon>
         <ng-template #noCheck>
           <span class="block w-6 h-6 bg-transparent"></span>
@@ -14,7 +14,7 @@
           <span>All Statuses</span>
         </span>
       </div>
-      <div (click)="handleStatusSelected(status)" *ngFor="let status of statuses"  mat-menu-item>
+      <div (click)="handleStatusSelected(status)" *ngFor="let status of statuses" mat-menu-item>
         <mat-icon *ngIf="status == selectedStatus() else noCheck" class="material-symbols-outlined">check</mat-icon>
         <ng-template #noCheck>
           <span class="block w-6 h-6 bg-transparent"></span>
@@ -86,8 +86,8 @@
     </table>
   </div>
 
-  <app-drawer (closeDrawer)="handleDrawerClose()" title="Loan no. #Hello"
+  <app-drawer (closeDrawer)="handleDrawerClose()" [title]="'Loan #' + (selectedItem | async)?.id"
               [open]="!!(selectedItem | async)">
-    <app-loan-details [loan]="(selectedItem | async)"/>
+    <app-loan-details (onEditForm)="handleFormEditing($event)" [loan]="(selectedItem | async)"/>
   </app-drawer>
 </div>

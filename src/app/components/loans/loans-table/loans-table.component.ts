@@ -36,6 +36,8 @@ import { selectSelectedLoan } from '../../../store/loans/loans.selector';
 import { deselectLoan, selectLoan } from '../../../store/loans/loans.actions';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateLoanDetailsDialogComponent } from '../update-loan-details-dialog/update-loan-details-dialog.component';
 
 @Component({
   selector: 'app-loans-table',
@@ -80,6 +82,7 @@ export class LoansTableComponent {
     private injector: Injector,
     private store: Store,
     private router: Router,
+    private dialog: MatDialog,
   ) {}
 
   displayedColumns: string[] = [
@@ -138,5 +141,21 @@ export class LoansTableComponent {
 
   handleAddLoan() {
     this.router.navigate(['/loans', 'u', 'create']);
+  }
+
+  handleFormEditing($event: Loan | null | undefined) {
+    if ($event) {
+      this.openEditingDialog($event);
+    }
+  }
+
+  private openEditingDialog(loan: Loan): void {
+    const dialogRef = this.dialog.open(UpdateLoanDetailsDialogComponent, {
+      data: loan,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }

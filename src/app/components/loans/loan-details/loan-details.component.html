@@ -1,23 +1,29 @@
 <div class="flex flex-col space-y-8">
   <section>
-    <h6>Loan Details</h6>
-    <div class="flex flex-col space-y-4">
-      <div class="flex justify-between">
+    <h6 class="font-semibold text-xl mb-2">Loan Details</h6>
+    <div class="grid grid-cols-1 bg-lr-100 rounded-xl divide divide-y">
+      <div class="flex justify-between p-4">
         <span class="font-semibold">Borrower</span>
-        <span class="">{{ loan?.borrower?.firstName }} {{ loan?.borrower?.lastName }}</span>
+        <span class="">{{ loan?.borrower?.fullName }}</span>
       </div>
-      <div class="flex justify-between">
+      <div class="flex justify-between p-4">
+        <span class="font-semibold">Loan Amount</span>
+        <span class="">{{ loan?.loanAmount }}</span>
+      </div>
+      <div class="flex justify-between p-4">
         <span class="font-semibold">Acc No.</span>
         <span class="">{{ loan?.borrower?.accountNumber }}</span>
       </div>
-      <div class="flex justify-between">
+      <div class="flex justify-between p-4">
         <span class="font-semibold">Status</span>
         <app-loan-status-badge [status]="loan?.status || ''"/>
       </div>
     </div>
   </section>
-<!--  <section>-->
-<!--    <h6>Repayment Schedule</h6>-->
-<!--  </section>-->
-
+  <section>
+    <button class="float-right" (click)="onEditForm.emit(loan)" mat-button>
+      <mat-icon class="material-symbols-rounded">edit</mat-icon>
+      Update Status
+    </button>
+  </section>
 </div>

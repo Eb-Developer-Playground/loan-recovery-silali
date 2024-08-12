@@ -11,6 +11,7 @@ export const enum LoanActions {
   DESELECT_LOAN = '[Loan] Deselect Loan',
   CREATE_LOAN = '[Loan] Create Loan',
   CREATE_LOAN_SUCCESS = '[Loan] Create Loan Success',
+  UPDATE_LOAN_STATUS = '[Loan] Update Loan Status',
 }
 
 interface LoanFilters {
@@ -43,3 +44,8 @@ export const createLoan = createAction(
 );
 
 export const createLoanSuccess = createAction(LoanActions.CREATE_LOAN_SUCCESS);
+
+export const updateLoanStatus = createAction(
+  LoanActions.UPDATE_LOAN_STATUS,
+  props<{ status: LoanStatus }>(),
+);

@@ -9,6 +9,7 @@ import {
   getLoans,
   getLoansSuccess,
   selectLoan,
+  updateLoanStatus,
 } from './loans.actions';
 import { filter } from 'rxjs';
 
@@ -20,7 +21,7 @@ export interface LoansState {
   isUpdatingLoans: boolean;
 }
 
-const initialState: LoansState = {
+export const loansInitialState: LoansState = {
   loans: [],
   loading: false,
   displayableLoans: [],
@@ -29,7 +30,7 @@ const initialState: LoansState = {
 };
 
 export const loansReducer = createReducer(
-  initialState,
+  loansInitialState,
   on(getLoans, (state) => ({ ...state, loading: true })),
   on(getLoansSuccess, (state, action) => ({
     ...state,
@@ -53,4 +54,22 @@ export const loansReducer = createReducer(
 
   on(createLoan, (state) => ({ ...state, isUpdatingLoans: true })),
   on(createLoanSuccess, (state) => ({ ...state, isUpdatingLoans: false })),
+  on(updateLoanStatus, (state, { status }) => {
+    const selectedLoan = state.selectedLoan;
+    if (selectedLoan) {
+      const copyOfLoan = { ...selectedLoan };
+      copyOfLoan.status = status;
+      return {
+        ...state,
+        selectedLoan: copyOfLoan,
+        loans: state.loans.map((obj) =>
+          obj.id === selectedLoan.id ? { ...obj, status: status } : obj,
+        ), //updating the loan in the loan list.
+        displayableLoans: state.displayableLoans.map((obj) =>
+          obj.id === selectedLoan.id ? { ...obj, status: status } : obj,
+        ),
+      };
+    }
+    return state;
+  }),
 );
