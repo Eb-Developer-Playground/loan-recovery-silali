@@ -15,16 +15,13 @@ export class ValidationService {
         return 'This field is required';
       }
 
-      // Add more error checks as needed
-      // if (control.errors['min']) {
-      //   return 'Minimum value is ...';
-      // }
+      if (control.errors['min']) {
+        return 'Minimum value is ...';
+      }
 
-      // if (control.errors['max']) {
-      //   return 'Maximum value is ...';
-      // }
-
-      // Custom error messages can be handled similarly
+      if (control.errors['max']) {
+        return 'Maximum value is ...';
+      }
     }
 
     return null; // No errors

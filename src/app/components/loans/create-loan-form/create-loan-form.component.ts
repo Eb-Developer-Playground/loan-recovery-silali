@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import {
@@ -14,7 +15,7 @@ import {
   MatOption,
 } from '@angular/material/autocomplete';
 import { MatButton } from '@angular/material/button';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSelect } from '@angular/material/select';
@@ -27,6 +28,7 @@ import { map, of, startWith } from 'rxjs';
 import { ValidationService } from '../../../services/common/validation.service';
 import { LoanService } from '../../../services/loans/loan.service';
 import { LoanRepaymentDetails } from '../../../models/loans/LoanRepaymentDetails';
+import { paymentScheduleValidator } from '../../../validators/paymentScheduleValidator';
 
 @Component({
   selector: 'app-create-loan-form',
@@ -47,6 +49,7 @@ import { LoanRepaymentDetails } from '../../../models/loans/LoanRepaymentDetails
     NgIf,
     ReactiveFormsModule,
     SelectedBorrowerDisplayComponent,
+    MatError,
   ],
   templateUrl: './create-loan-form.component.html',
   styleUrl: './create-loan-form.component.scss',
@@ -58,17 +61,27 @@ export class CreateLoanFormComponent {
 
   loanRepaymentDetails: LoanRepaymentDetails | null | undefined = null;
 
+  public $errors: ValidationErrors | null = null;
+
   createLoanForm: FormGroup = new FormGroup({
-    amount: new FormControl(0, Validators.required),
-    interestRate: new FormControl(0, Validators.required),
-    paymentPeriod: new FormControl(1, Validators.required),
-    paymentSchedule: new FormControl('monthly', Validators.required),
+    amount: new FormControl(0, [Validators.required, Validators.min(1000)]),
+    interestRate: new FormControl(0, [
+      Validators.required,
+      Validators.min(0.1),
+      Validators.max(100),
+    ]),
+    paymentPeriod: new FormControl(1, [Validators.required, Validators.min(1)]),
+    paymentSchedule: new FormControl('monthly', [
+      Validators.required,
+      paymentScheduleValidator(),
+    ]),
     borrower: new FormControl(null, Validators.required),
   });
 
   constructor(
     private store: Store,
     private loanService: LoanService,
+    public validationService: ValidationService,
   ) {
     this.handleAutocompleteFiltering();
     this.handleRepaymentCalculation();
@@ -93,6 +106,9 @@ export class CreateLoanFormComponent {
           data: this.createLoanForm.value,
         }),
       );
+    } else {
+      this.$errors = this.createLoanForm.errors;
+      console.log(this.$errors);
     }
   }
 
@@ -148,4 +164,6 @@ export class CreateLoanFormComponent {
       },
     });
   }
+
+  handleFormErrors() {}
 }
