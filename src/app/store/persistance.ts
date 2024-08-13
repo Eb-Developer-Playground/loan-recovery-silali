@@ -5,13 +5,15 @@ import { InjectionToken } from '@angular/core';
 import { routerReducer } from '@ngrx/router-store';
 import { loansReducer } from './loans/loans.reducers';
 import { sidebarReducer } from './sidebar/sidebar.reducers';
+import { languageReducer } from './language/language.reducers';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>,
 ): ActionReducer<any> {
-  return localStorageSync({ keys: ['auth', 'loans'], rehydrate: true })(
-    reducer,
-  );
+  return localStorageSync({
+    keys: ['auth', 'loans', 'language'],
+    rehydrate: true,
+  })(reducer);
 }
 
 // console.log all actions
@@ -36,6 +38,7 @@ export const ROOT_REDUCERS = new InjectionToken<ActionReducerMap<any, Action>>(
       auth: authReducer,
       loans: loansReducer,
       sidebar: sidebarReducer,
+      language: languageReducer,
     }),
   },
 );

@@ -107,8 +107,19 @@ export class CreateLoanFormComponent {
         }),
       );
     } else {
-      this.$errors = this.createLoanForm.errors;
-      console.log(this.$errors);
+      let x = Object.keys(this.createLoanForm.controls).reduce(
+        (
+          previousValue: Record<string, any>,
+          currentValue,
+          currentIndex,
+        ): Record<string, any> => {
+          previousValue[currentValue] =
+            this.createLoanForm.get(currentValue)?.errors;
+          return previousValue;
+        },
+        {},
+      );
+      console.log({ hugo: x });
     }
   }
 

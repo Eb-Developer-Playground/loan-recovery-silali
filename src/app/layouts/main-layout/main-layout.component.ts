@@ -12,6 +12,9 @@ import { SidebarComponent } from '../../components/common/sidebar/sidebar.compon
 import { Store } from '@ngrx/store';
 import { selectSidebarIsOpen } from '../../store/sidebar/sidebar.selectors';
 import { AsyncPipe } from '@angular/common';
+import { FlagUK } from '../../components/common/flags/uk.flag';
+import { FlagFR } from '../../components/common/flags/fr.flag';
+import { LanguageSelectorComponent } from '../../components/common/language-selector/language-selector.component';
 
 @Component({
   selector: 'app-main-layout',
@@ -31,6 +34,9 @@ import { AsyncPipe } from '@angular/common';
     MatCardAvatar,
     SidebarComponent,
     AsyncPipe,
+    FlagUK,
+    FlagFR,
+    LanguageSelectorComponent,
   ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',

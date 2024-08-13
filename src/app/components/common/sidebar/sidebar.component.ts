@@ -15,8 +15,18 @@ import { Store } from '@ngrx/store';
 })
 export class SidebarComponent {
   menuItems: MainMenuItem[] = [
-    { icon: 'home', label: 'Dashboard', path: '/', shouldMatchExact: true },
-    { icon: 'money', label: 'Loans', path: 'loans', shouldMatchExact: false },
+    {
+      icon: 'home',
+      label: 'MENU_LABELS.HOME',
+      path: '/',
+      shouldMatchExact: true,
+    },
+    {
+      icon: 'money',
+      label: 'MENU_LABELS.LOANS',
+      path: 'loans',
+      shouldMatchExact: false,
+    },
   ];
 
   constructor(private store: Store) {}
