@@ -1,7 +1,10 @@
 import { Component, computed } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../../../store/auth/auth.selectors';
-import { AsyncPipe } from '@angular/common';
+import {
+  selectIsUpdatingProfile,
+  selectUser,
+} from '../../../store/auth/auth.selectors';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
@@ -20,6 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatMenuTrigger,
     RouterLink,
     TranslateModule,
+    NgIf,
   ],
   templateUrl: './user-profile-button.component.html',
   styleUrl: './user-profile-button.component.scss',

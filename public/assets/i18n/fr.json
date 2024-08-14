@@ -32,5 +32,18 @@
   "AUTH_REGISTER_ACCOUNT": "Registre un compte",
   "NAME": "Nom",
   "EMAIL": "E-mail",
-  "PASSWORD": "Mot de passe"
+  "PHONE": "Numéro de téléphone",
+  "PASSWORD": "Mot de passe",
+  "BORROWER": "Emprunteur",
+  "AMOUNT": "Montant",
+  "INTEREST_RATE": "Taux d'intérêt",
+  "BALANCE":"Solde",
+  "STATUS": "Statut",
+  "ALL_STATUSES": "Tous les Statuts",
+  "EXPORT_DATA": "Exporter des données",
+  "ADD_LOAN": "Nouveau prêt",
+  "LOAN_DETAILS": "Détails du prêt",
+  "MANAGE_PROFILE": "Gérer le profil",
+  "UPDATE_PROFILE": "Mettre à jour le profil",
+  "UPDATING_PROFILE":"Mise à jour"
 }

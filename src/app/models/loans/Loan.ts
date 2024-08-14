@@ -1,4 +1,5 @@
 import { Borrower } from './Borrower';
+import { RepaymentSchedule } from './RepaymentSchedule';
 
 export enum LoanStatus {
   Current = 'current',
@@ -17,4 +18,5 @@ export interface Loan {
   endDate: string;
   outstandingBalance: number;
   status: LoanStatus;
+  repaymentSchedule?: RepaymentSchedule[];
 }

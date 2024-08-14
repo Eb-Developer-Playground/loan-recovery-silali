@@ -3,6 +3,7 @@ import { LoginResponseData } from '../../models/auth/LoginResponseData';
 import { LoginData } from '../../models/auth/LoginData';
 import { RegisterData } from '../../models/auth/RegisterData';
 import { RegisterUserResponse } from '../../models/auth/RegisterUserResponse';
+import { UpdateUserProfileData } from '../../models/auth/UpdateUserProfileData';
 
 export const enum AuthActionType {
   LOGIN_USER_SUCCESS = '[Login Page] Login User Success',
@@ -13,6 +14,8 @@ export const enum AuthActionType {
   LOGOUT_USER_ERROR = '[Profile Page] Logout User Error',
   REGISTER_USER = '[Register Page] Register User',
   REGISTER_USER_SUCCESS = '[Register Page] Register User Success',
+  UPDATE_USER_PROFILE = '[Profile Page] Update User Profile',
+  UPDATE_USER_PROFILE_SUCCESS = '[Profile Page] Update User Profile Success',
 }
 
 export const loginUser = createAction(
@@ -42,4 +45,14 @@ export const registerUser = createAction(
 export const registerUserSuccess = createAction(
   AuthActionType.REGISTER_USER_SUCCESS,
   props<RegisterUserResponse>(),
+);
+
+export const updateUserProfile = createAction(
+  AuthActionType.UPDATE_USER_PROFILE,
+  props<UpdateUserProfileData>(),
+);
+
+export const updateUserProfileSuccess = createAction(
+  AuthActionType.UPDATE_USER_PROFILE_SUCCESS,
+  props<UpdateUserProfileData>(),
 );

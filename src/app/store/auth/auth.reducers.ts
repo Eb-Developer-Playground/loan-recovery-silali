@@ -7,18 +7,22 @@ import {
   logoutUserSuccess,
   registerUser,
   registerUserSuccess,
+  updateUserProfile,
+  updateUserProfileSuccess,
 } from './auth.actions';
 
 export interface AuthState {
   user?: UserData | null;
   accessToken?: string | null;
   loading?: boolean;
+  isUpdatingProfile?: boolean;
 }
 
 export const initialState: AuthState = {
   user: null,
   accessToken: null,
   loading: false,
+  isUpdatingProfile: false,
 };
 
 export const authReducer = createReducer(
@@ -45,5 +49,20 @@ export const authReducer = createReducer(
   }),
   on(registerUserSuccess, (state) => {
     return state;
+  }),
+  on(updateUserProfile, (state) => {
+    return { ...state, isUpdatingProfile: true };
+  }),
+
+  on(updateUserProfileSuccess, (state, data) => {
+    return {
+      ...state,
+      isUpdatingProfile: false,
+      user: {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      },
+    };
   }),
 );

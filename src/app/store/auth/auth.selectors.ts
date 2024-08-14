@@ -14,3 +14,8 @@ export const selectAuthLoadingState = createSelector(
   selectAuthState,
   (state) => state.loading,
 );
+
+export const selectIsUpdatingProfile = createSelector(
+  selectAuthState,
+  (state) => state.isUpdatingProfile,
+);

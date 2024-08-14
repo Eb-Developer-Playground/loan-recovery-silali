@@ -42,6 +42,13 @@ export default function () {
           timing: 2000,
         },
       );
+      this.put(
+        '/api/updateUserProfile',
+        (schema, request) => {
+          return request.requestBody;
+        },
+        { timing: 3000 },
+      );
       this.get(
         '/api/loans',
         (schema, request) => {

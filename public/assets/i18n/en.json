@@ -32,5 +32,18 @@
   "AUTH_REGISTER_ACCOUNT": "Register Account",
   "NAME": "Name",
   "EMAIL": "Email",
-  "PASSWORD": "Password"
+  "PASSWORD": "Password",
+  "PHONE": "Phone Number",
+  "BORROWER": "Borrower",
+  "AMOUNT": "Amount",
+  "INTEREST_RATE": "Interest Rate",
+  "BALANCE":"Balance",
+  "STATUS": "Status",
+  "ALL_STATUSES": "All Statuses",
+  "EXPORT_DATA": "Export Data",
+  "ADD_LOAN": "Add Loan",
+  "LOAN_DETAILS": "Loan Details",
+  "MANAGE_PROFILE": "Manage Profile",
+  "UPDATE_PROFILE": "Update Profile",
+  "UPDATING_PROFILE":"Updating Profile"
 }

@@ -38,6 +38,7 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateLoanDetailsDialogComponent } from '../update-loan-details-dialog/update-loan-details-dialog.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-loans-table',
@@ -69,6 +70,7 @@ import { UpdateLoanDetailsDialogComponent } from '../update-loan-details-dialog/
     SnakeToSpacePipe,
     AsyncPipe,
     MatPaginator,
+    TranslateModule,
   ],
   templateUrl: './loans-table.component.html',
   styleUrl: './loans-table.component.scss',

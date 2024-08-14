@@ -11,7 +11,10 @@ import {
   logoutUserSuccess,
   registerUser,
   registerUserSuccess,
+  updateUserProfile,
+  updateUserProfileSuccess,
 } from './auth.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class AuthEffects {
@@ -78,9 +81,37 @@ export class AuthEffects {
     ),
   );
 
+  updateUserProfile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateUserProfile),
+      exhaustMap((userData) => {
+        return this.authService.updateUserProfile(userData).pipe(
+          map(() => {
+            return updateUserProfileSuccess(userData);
+          }),
+          catchError((error) => of()),
+        );
+      }),
+    ),
+  );
+
+  updateUserProfileSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateUserProfileSuccess),
+        tap((data) =>
+          this.matSnackBar.open('User profile updated successfully.', 'Ok', {
+            duration: 3000,
+          }),
+        ),
+      ),
+    { dispatch: false },
+  );
+
   constructor(
     private actions$: Actions,
     private authService: AuthService,
     private router: Router,
+    private matSnackBar: MatSnackBar,
   ) {}
 }

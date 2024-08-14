@@ -3,11 +3,12 @@ import { Loan } from '../../../models/loans/Loan';
 import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge.component';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-loan-details',
   standalone: true,
-  imports: [LoanStatusBadgeComponent, MatButton, MatIcon],
+  imports: [LoanStatusBadgeComponent, MatButton, MatIcon, NgForOf, NgIf],
   templateUrl: './loan-details.component.html',
 })
 export class LoanDetailsComponent {
