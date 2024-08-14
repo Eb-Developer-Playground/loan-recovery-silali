@@ -17,13 +17,13 @@ export class SidebarComponent {
   menuItems: MainMenuItem[] = [
     {
       icon: 'home',
-      label: 'MENU_LABELS.HOME',
+      label: 'DASHBOARD',
       path: '/',
       shouldMatchExact: true,
     },
     {
       icon: 'money',
-      label: 'MENU_LABELS.LOANS',
+      label: 'LOANS',
       path: 'loans',
       shouldMatchExact: false,
     },

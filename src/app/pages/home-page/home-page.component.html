@@ -2,36 +2,26 @@
   <app-page-header title="Dashboard"/>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-1 md:gap-4 gap-2 mb-8">
     <div class="col-span-1">
-      <app-stat-card title="Total Loans Issued" value="6700"/>
+      <app-stat-card title="TOTAL_LOANS_ISSUED" value="6700"/>
     </div>
     <div class="col-span-1">
-      <app-stat-card title="Total Loans Recovered" value="910"/>
+      <app-stat-card title="TOTAL_LOANS_RECOVERED" value="910"/>
     </div>
     <div class="col-span-1">
-      <app-stat-card title="Total Amount Issued" value="23,000,700"/>
+      <app-stat-card title="TOTAL_AMOUNT_ISSUED" value="23,000,700"/>
     </div>
     <div class="col-span-1">
-      <app-stat-card title="Total Amount Recovered" value="19,900,730"/>
+      <app-stat-card title="TOTAL_AMOUNT_RECOVERED" value="19,900,730"/>
     </div>
   </div>
   <div class="grid grid-cols-5  gap-6">
     <div class="col-span-5">
-      <p class="section-title">Loans by Type</p>
-      <mat-card class="lr-card" appearance="outlined">
-        <mat-card-content>
-          <ngx-charts-advanced-pie-chart  class="ngx-chart-lr" [results]="loanTypes"/>
-        </mat-card-content>
-      </mat-card>
+      <p class="section-title">{{ 'LOANS_BY_TYPE' | translate }}</p>
+      <app-loan-types-chart/>
     </div>
     <div class="col-span-5">
-      <p class="section-title">Recovered Loans Monthly</p>
-      <mat-card class="lr-card" appearance="outlined">
-        <mat-card-content>
-          <div class="pt-12">
-            <ngx-charts-bar-vertical class="ngx-chart-lr" [xAxis]="true" [yAxis]="true" [results]="monthlyStats" />
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <p class="section-title">{{ 'RECOVERED_LOANS_BY_MONTH' | translate }}</p>
+      <app-monthly-recovered-chart/>
     </div>
   </div>
 </div>

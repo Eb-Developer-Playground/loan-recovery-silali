@@ -18,6 +18,8 @@ import { Store } from '@ngrx/store';
 import { registerUser } from '../../store/auth/auth.actions';
 import { RegisterData } from '../../models/auth/RegisterData';
 import { selectAuthLoadingState } from '../../store/auth/auth.selectors';
+import { LanguageSelectorComponent } from '../../components/common/language-selector/language-selector.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register-page',
@@ -37,6 +39,8 @@ import { selectAuthLoadingState } from '../../store/auth/auth.selectors';
     RouterLink,
     MatInput,
     NgIf,
+    LanguageSelectorComponent,
+    TranslateModule,
   ],
   templateUrl: './register-page.component.html',
 })
