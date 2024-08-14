@@ -39,6 +39,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateLoanDetailsDialogComponent } from '../update-loan-details-dialog/update-loan-details-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormatCurrencyPipe } from '../../../pipes/format-currency.pipe';
 
 @Component({
   selector: 'app-loans-table',
@@ -71,6 +72,7 @@ import { TranslateModule } from '@ngx-translate/core';
     AsyncPipe,
     MatPaginator,
     TranslateModule,
+    FormatCurrencyPipe,
   ],
   templateUrl: './loans-table.component.html',
   styleUrl: './loans-table.component.scss',

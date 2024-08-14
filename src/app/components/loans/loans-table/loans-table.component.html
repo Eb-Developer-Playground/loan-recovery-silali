@@ -52,17 +52,17 @@
 
       <ng-container matColumnDef="loanAmount">
         <th mat-header-cell *matHeaderCellDef>{{ 'AMOUNT' | translate }}</th>
-        <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{ element.loanAmount }}</td>
+        <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{ element.loanAmount | formatCurrency }}</td>
       </ng-container>
 
       <ng-container matColumnDef="interestRate">
         <th mat-header-cell *matHeaderCellDef>{{ 'INTEREST_RATE' | translate }}</th>
-        <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{ element.interestRate }}</td>
+        <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{ element.interestRate }}%</td>
       </ng-container>
 
       <ng-container matColumnDef="outstandingBalance">
         <th mat-header-cell *matHeaderCellDef>{{ 'BALANCE' | translate }}</th>
-        <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{ element.outstandingBalance }}</td>
+        <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element"> {{ element.outstandingBalance | formatCurrency }}</td>
       </ng-container>
 
       <ng-container matColumnDef="status">

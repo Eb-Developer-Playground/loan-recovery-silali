@@ -3,7 +3,7 @@ export enum RepaymentScheduleStatus {
   Due = 'due',
   Overdue = 'overdue',
 }
-export interface RepaymentSchedule {
+export interface Repayment {
   date: string;
   amount: number;
   status: RepaymentScheduleStatus;
