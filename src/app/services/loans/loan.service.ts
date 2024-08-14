@@ -4,6 +4,11 @@ import { Observable } from 'rxjs';
 import { CreateLoanFormData } from '../../models/loans/CreateLoanFormData';
 import { LoanRepaymentDetails } from '../../models/loans/LoanRepaymentDetails';
 
+interface CompoundInterest {
+  amount: number;
+  installments: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +28,7 @@ export class LoanService {
     rate: number,
     time: number,
     schedule: string,
-  ): number {
+  ): CompoundInterest {
     const annualRate = rate / 100;
 
     let n: number;
@@ -46,24 +51,10 @@ export class LoanService {
         );
     }
 
-    return principal * Math.pow(1 + annualRate / n, n * time);
-  }
-
-  private getNumberOfInstallments(schedule: string): number {
-    switch (schedule.toLowerCase()) {
-      case 'monthly':
-        return 12;
-      case 'quarterly':
-        return 4;
-      case 'bi-annually':
-        return 2;
-      case 'annually':
-        return 1;
-      default:
-        throw new Error(
-          "Invalid schedule. Use 'monthly', 'quarterly', 'bi-annually', or 'annually'.",
-        );
-    }
+    return {
+      amount: principal * Math.pow(1 + annualRate / n, n * time),
+      installments: n,
+    };
   }
 
   getLoanRepaymentDetails(
@@ -72,19 +63,18 @@ export class LoanService {
     time: number,
     schedule: string,
   ): LoanRepaymentDetails {
-    const amount = this.calculateCompoundInterest(
+    const { amount, installments } = this.calculateCompoundInterest(
       principal,
       rate,
       time,
       schedule,
     );
     const interest = amount - principal;
-    const numberOfInstallments = this.getNumberOfInstallments(schedule);
     return {
       interest: interest,
       total: amount,
-      installments: numberOfInstallments,
-      amountPerInstallment: amount / numberOfInstallments,
+      installments,
+      amountPerInstallment: amount / installments,
     };
   }
 }

@@ -7,6 +7,7 @@ import { LoansPageComponent } from './pages/loans-page/loans-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ViewLoanDetailsWrapperComponent } from './components/loans/view-loan-details-wrapper/view-loan-details-wrapper.component';
 import { CreateLoanPageComponent } from './components/pages/create-loan-page/create-loan-page.component';
+import { PageNotFoundComponent } from './components/pages/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {

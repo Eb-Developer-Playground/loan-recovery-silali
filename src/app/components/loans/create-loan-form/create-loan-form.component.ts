@@ -25,7 +25,6 @@ import { createLoan } from '../../../store/loans/loans.actions';
 import { selectIsUpdatingLoans } from '../../../store/loans/loans.selector';
 import { Store } from '@ngrx/store';
 import { map, of, startWith } from 'rxjs';
-import { ValidationService } from '../../../services/common/validation.service';
 import { LoanService } from '../../../services/loans/loan.service';
 import { LoanRepaymentDetails } from '../../../models/loans/LoanRepaymentDetails';
 import { paymentScheduleValidator } from '../../../validators/paymentScheduleValidator';
@@ -81,7 +80,6 @@ export class CreateLoanFormComponent {
   constructor(
     private store: Store,
     private loanService: LoanService,
-    public validationService: ValidationService,
   ) {
     this.handleAutocompleteFiltering();
     this.handleRepaymentCalculation();

@@ -11,7 +11,10 @@ describe('LoanService', () => {
     TestBed.configureTestingModule({
       providers: [
         LoanService,
-        { provide: HttpClient, useValue: { get: jest.fn(), post: jest.fn() } },
+        {
+          provide: HttpClient,
+          useValue: { createLoan: jest.fn(), fetchLoan: jest.fn() },
+        },
       ],
     });
     service = TestBed.inject(LoanService);
@@ -51,11 +54,11 @@ describe('LoanService', () => {
     const principal = 1000;
     const rate = 5;
     const time = 2;
-    const schedule = 'weekly'; // Invalid schedule
+    const schedule = 'weekly';
 
     expect(() => {
       service.getLoanRepaymentDetails(principal, rate, time, schedule);
-    }).toThrowError(
+    }).toThrow(
       "Invalid schedule. Use 'monthly', 'quarterly', 'bi-annually', or 'annually'.",
     );
   });
