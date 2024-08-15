@@ -55,5 +55,9 @@
   "quarterly": "trimestriel",
   "UPDATE_STATUS": "Mettre a Statut",
   "SEARCH": "Le Search",
-  "SEARCH_LOANS_TABLE": "Recherche par N° de compte ou par emprunteur"
+  "SEARCH_LOANS_TABLE": "Recherche par N° de compte ou par emprunteur",
+  "NAME_IS_REQUIRED": "Le nom est requis",
+  "EMAIL_IS_REQUIRED": "Un e-mail est requis",
+  "EMAIL_IS_INVALID": "L'e-mail n'est pas valide",
+  "PASSWORD_IS_REQUIRED": "Un mot de passe est requis"
 }

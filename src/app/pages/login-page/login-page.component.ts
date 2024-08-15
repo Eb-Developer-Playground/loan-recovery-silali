@@ -26,6 +26,8 @@ import { selectAuthLoadingState } from '../../store/auth/auth.selectors';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { skip } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { z } from 'zod';
+import { MatError } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-login-page',
@@ -48,6 +50,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatAnchor,
     RouterLink,
     TranslateModule,
+    MatError,
   ],
   templateUrl: './login-page.component.html',
 })
@@ -63,6 +66,13 @@ export class LoginPageComponent {
     password: new FormControl('', Validators.required),
   });
 
+  zodValidatorSchema = z.object({
+    email: z.string().email('EMAIL_IS_INVALID').min(1, 'EMAIL_IS_REQUIRED'),
+    password: z.string().min(1, 'PASSWORD_IS_REQUIRED'),
+  });
+
+  formErrors: Record<string, string> = {};
+
   onSubmit() {
     if (this.loginForm.valid) {
       this.showSnackbar();
@@ -71,6 +81,15 @@ export class LoginPageComponent {
           data: this.loginForm.value as LoginData,
         }),
       );
+    } else {
+      try {
+        this.zodValidatorSchema.parse(this.loginForm.value);
+      } catch (e) {
+        if (e instanceof z.ZodError) {
+          this.parseFormErrors(e.errors);
+        }
+      }
+      this.loginForm.markAllAsTouched();
     }
   }
 
@@ -83,5 +102,15 @@ export class LoginPageComponent {
         }
       },
     });
+  }
+
+  private parseFormErrors(errors: z.ZodIssue[]) {
+    this.formErrors = errors.reduce(
+      (errorObject: Record<string, string>, error) => {
+        errorObject[error.path[0]] = error.message;
+        return errorObject;
+      },
+      {},
+    );
   }
 }

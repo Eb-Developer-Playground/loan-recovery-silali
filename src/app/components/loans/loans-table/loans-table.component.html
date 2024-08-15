@@ -76,7 +76,11 @@
       <ng-container matColumnDef="borrower">
         <th mat-header-cell *matHeaderCellDef>{{ 'BORROWER' | translate }}</th>
         <td mat-cell class="border-t-0 border-b-0"
-            *matCellDef="let element"> {{ element.borrower.fullName }}
+            *matCellDef="let element">
+          <div class="flex flex-col justify-start">
+            <span>{{ element.borrower.fullName }}</span>
+            <span class="text-xs font-semibold md:flex hidden">#{{ element.borrower.accountNumber }}</span>
+          </div>
         </td>
       </ng-container>
 
@@ -107,10 +111,7 @@
       <tr mat-row (click)="handleSelected(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-          <div class="w-full flex items-center flex-col justify-center h-80">
-            <span class="material-symbols-rounded text-stone-400 text-7xl">data_alert</span>
-            <p class="text-lg mb-0">No loan records found</p>
-          </div>
+          <app-table-empty-state message="No loan records found." icon="data_alert"/>
         </td>
       </tr>
     </table>

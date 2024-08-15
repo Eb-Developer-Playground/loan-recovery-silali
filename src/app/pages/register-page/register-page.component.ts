@@ -11,7 +11,7 @@ import {
 import { LogoComponent } from '../../components/common/logo/logo.component';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatCard, MatCardContent } from '@angular/material/card';
-import { MatFormField } from '@angular/material/form-field';
+import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatInput, MatLabel } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -20,6 +20,7 @@ import { RegisterData } from '../../models/auth/RegisterData';
 import { selectAuthLoadingState } from '../../store/auth/auth.selectors';
 import { LanguageSelectorComponent } from '../../components/common/language-selector/language-selector.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { z } from 'zod';
 
 @Component({
   selector: 'app-register-page',
@@ -41,6 +42,7 @@ import { TranslateModule } from '@ngx-translate/core';
     NgIf,
     LanguageSelectorComponent,
     TranslateModule,
+    MatError,
   ],
   templateUrl: './register-page.component.html',
 })
@@ -55,11 +57,37 @@ export class RegisterPageComponent {
     password: new FormControl('', [Validators.required]),
   });
 
+  formErrors: Record<string, string> = {};
+
+  zodValidatorSchema = z.object({
+    email: z.string().email('EMAIL_IS_INVALID').min(1, 'EMAIL_IS_REQUIRED'),
+    password: z.string().min(1, 'PASSWORD_IS_REQUIRED'),
+    name: z.string().min(1, 'NAME_IS_REQUIRED'),
+  });
+
   onSubmit() {
     if (this.registerForm.valid) {
       this.store.dispatch(
         registerUser(this.registerForm.value as RegisterData),
       );
+    } else {
+      try {
+        this.zodValidatorSchema.parse(this.registerForm.value);
+      } catch (e) {
+        if (e instanceof z.ZodError) {
+          this.parseFormErrors(e.errors);
+        }
+      }
     }
+  }
+
+  private parseFormErrors(errors: z.ZodIssue[]) {
+    this.formErrors = errors.reduce(
+      (errorObject: Record<string, string>, error) => {
+        errorObject[error.path[0]] = error.message;
+        return errorObject;
+      },
+      {},
+    );
   }
 }

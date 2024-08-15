@@ -13,17 +13,19 @@
             <app-logo/>
           </div>
           <div class="mb-12">
-            <h3 class="font-semibold text-2xl">{{ 'AUTH_SIGN_IN' | translate}}</h3>
+            <h3 class="font-semibold text-2xl">{{ 'AUTH_SIGN_IN' | translate }}</h3>
             <p>{{ 'AUTH_CONTINUE_TO' | translate }} LoanRecovery</p>
           </div>
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <mat-form-field class="w-full" appearance="outline">
+            <mat-form-field class="w-full mb-4" appearance="outline">
               <mat-label>{{ 'EMAIL' | translate }}</mat-label>
               <input type="email" autocomplete="on" formControlName="email" matInput/>
+              <mat-error>{{ formErrors['email'] | translate }}</mat-error>
             </mat-form-field>
-            <mat-form-field class="w-full" appearance="outline">
+            <mat-form-field class="w-full mb-4" appearance="outline">
               <mat-label>{{ 'PASSWORD' | translate }}</mat-label>
               <input autocomplete="on" type="password" formControlName="password" matInput/>
+              <mat-error>{{ formErrors['password'] | translate }}</mat-error>
             </mat-form-field>
             <div class="flex-1 items-end justify-end mt-12 space-x-2">
               <a mat-button routerLink="/register">{{ 'AUTH_CREATE_ACCOUNT' | translate }}</a>

@@ -6,6 +6,7 @@ import { MatIcon } from '@angular/material/icon';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormatCurrencyPipe } from '../../../pipes/format-currency.pipe';
 import { TranslateModule } from '@ngx-translate/core';
+import { TableEmptyStateComponent } from '../../../common/table-empty-state/table-empty-state.component';
 
 @Component({
   selector: 'app-loan-details',
@@ -18,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
     NgIf,
     FormatCurrencyPipe,
     TranslateModule,
+    TableEmptyStateComponent,
   ],
   templateUrl: './loan-details.component.html',
 })

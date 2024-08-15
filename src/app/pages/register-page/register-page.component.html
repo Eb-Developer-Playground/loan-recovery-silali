@@ -19,17 +19,20 @@
             <p>{{ 'AUTH_CONTINUE_TO' | translate }} LoanRecovery</p>
           </div>
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <mat-form-field class="w-full" appearance="outline">
+            <mat-form-field class="w-full mb-4" appearance="outline">
               <mat-label>{{  'NAME' | translate }}</mat-label>
               <input type="text" autocomplete="on" formControlName="name" matInput/>
+              <mat-error>{{ formErrors['name'] | translate }}</mat-error>
             </mat-form-field>
-            <mat-form-field class="w-full" appearance="outline">
+            <mat-form-field class="w-full mb-4" appearance="outline">
               <mat-label>{{ 'EMAIL' | translate }}</mat-label>
               <input type="email" autocomplete="on" formControlName="email" matInput/>
+              <mat-error>{{ formErrors['email'] | translate }}</mat-error>
             </mat-form-field>
-            <mat-form-field class="w-full" appearance="outline">
+            <mat-form-field class="w-full mb-4" appearance="outline">
               <mat-label>{{ 'PASSWORD' | translate}}</mat-label>
               <input autocomplete="on" type="password" formControlName="password" matInput/>
+              <mat-error>{{ formErrors['password'] | translate }}</mat-error>
             </mat-form-field>
             <div class="flex-1 items-end justify-end mt-12 space-x-2">
               <a mat-button routerLink="/login">{{'AUTH_LOGIN'| translate}}</a>

@@ -55,5 +55,9 @@
   "quarterly": "quarterly",
   "UPDATE_STATUS": "Update Status",
   "SEARCH": "Search",
-  "SEARCH_LOANS_TABLE": "Search by Acct. No or Borrower"
+  "SEARCH_LOANS_TABLE": "Search by Acct. No or Borrower",
+  "NAME_IS_REQUIRED": "Name is required",
+  "EMAIL_IS_REQUIRED": "Email is required",
+  "EMAIL_IS_INVALID": "Email is invalid",
+  "PASSWORD_IS_REQUIRED": "Password is required"
 }

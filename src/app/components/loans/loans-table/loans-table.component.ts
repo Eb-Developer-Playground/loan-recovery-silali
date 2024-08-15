@@ -57,6 +57,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { delay } from 'rxjs';
+import { TableEmptyStateComponent } from '../../../common/table-empty-state/table-empty-state.component';
 
 @Component({
   selector: 'app-loans-table',
@@ -96,6 +97,7 @@ import { delay } from 'rxjs';
     MatIconButton,
     ReactiveFormsModule,
     MatPaginatorModule,
+    TableEmptyStateComponent,
   ],
   templateUrl: './loans-table.component.html',
   styleUrl: './loans-table.component.scss',
