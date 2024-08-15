@@ -3,7 +3,6 @@ import {
   effect,
   EventEmitter,
   Injector,
-  Input,
   Output,
   signal,
   ViewChild,
@@ -57,7 +56,7 @@ import { FormatCurrencyPipe } from '../../../pipes/format-currency.pipe';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounce, delay } from 'rxjs';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-loans-table',

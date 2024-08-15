@@ -1,6 +1,13 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  effect,
+  Input,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -28,6 +35,8 @@ import { map, of, startWith } from 'rxjs';
 import { LoanService } from '../../../services/loans/loan.service';
 import { LoanRepaymentDetails } from '../../../models/loans/LoanRepaymentDetails';
 import { paymentScheduleValidator } from '../../../validators/paymentScheduleValidator';
+import { CreateBorrowerFormComponent } from '../../loan/create-borrower-form/create-borrower-form.component';
+import { FormatCurrencyPipe } from '../../../pipes/format-currency.pipe';
 
 @Component({
   selector: 'app-create-loan-form',
@@ -49,6 +58,8 @@ import { paymentScheduleValidator } from '../../../validators/paymentScheduleVal
     ReactiveFormsModule,
     SelectedBorrowerDisplayComponent,
     MatError,
+    CreateBorrowerFormComponent,
+    FormatCurrencyPipe,
   ],
   templateUrl: './create-loan-form.component.html',
   styleUrl: './create-loan-form.component.scss',
@@ -57,6 +68,8 @@ export class CreateLoanFormComponent {
   @Input() borrowers: Borrower[] = [];
 
   filteredOptions = of(this.borrowers);
+
+  shouldAddNewBorrower: WritableSignal<boolean> = signal(false);
 
   loanRepaymentDetails: LoanRepaymentDetails | null | undefined = null;
 
@@ -80,9 +93,48 @@ export class CreateLoanFormComponent {
   constructor(
     private store: Store,
     private loanService: LoanService,
+    private formBuilder: FormBuilder,
   ) {
     this.handleAutocompleteFiltering();
     this.handleRepaymentCalculation();
+
+    // this.createLoanForm = this.formBuilder.group();
+
+    effect(() => {
+      if (this.shouldAddNewBorrower()) {
+        this.createLoanForm.addControl(
+          'newBorrowerFirstName',
+          new FormControl('', Validators.required),
+        );
+        this.createLoanForm.addControl(
+          'newBorrowerLastName',
+          new FormControl('', Validators.required),
+        );
+        this.createLoanForm.addControl(
+          'newBorrowerEmail',
+          new FormControl('', [Validators.required, Validators.email]),
+        );
+        this.createLoanForm.addControl(
+          'newBorrowerPhone',
+          new FormControl('', Validators.required),
+        );
+        this.createLoanForm.addControl(
+          'newBorrowerAddress',
+          new FormControl('', Validators.required),
+        );
+        this.createLoanForm.addControl(
+          'newBorrowerAccountNumber',
+          new FormControl('', Validators.required),
+        );
+        this.createLoanForm.removeControl('borrower');
+      } else {
+        this.createLoanForm.addControl(
+          'borrower',
+          new FormControl(null, Validators.required),
+        );
+      }
+      console.log(`${this.shouldAddNewBorrower()}`);
+    });
   }
 
   isUpdatingLoans = this.store.select(selectIsUpdatingLoans);

@@ -5,8 +5,11 @@
       <input matInput [formControl]="searchFormControl">
     </mat-form-field>
     <div class="h-[76px] hidden  md:flex space-x-2 items-start">
-      <button class="hidden md:block" [matMenuTriggerFor]="statusesMenu" mat-button>
-        {{ 'ALL_STATUSES' | translate }}
+      <button class="hidden md:block capitalize" [matMenuTriggerFor]="statusesMenu" mat-button>
+         <span *ngIf="selectedStatus() == null else statusSelected">{{ 'ALL_STATUSES' | translate }}</span>
+          <ng-template #statusSelected>
+            <span class="capitalize">{{ selectedStatus() | snakeToSpace }}</span>
+          </ng-template>
         <mat-icon iconPositionEnd class="material-symbols-rounded">arrow_drop_down</mat-icon>
       </button>
       <mat-menu #statusesMenu>

@@ -6,9 +6,9 @@
              style="background: rgba(255,255,255,0.6)">
           <mat-spinner></mat-spinner>
         </div>
-        <section>
+        <section class="mb-4">
           <p class="section-title">Borrower Info</p>
-          <div class="flex space-x-6">
+          <div *ngIf="!shouldAddNewBorrower(); else newBorrowerForm">
             <mat-form-field class="w-full" appearance="outline">
               <mat-label>Select a Borrower</mat-label>
               <input
@@ -30,7 +30,16 @@
                 >
               </mat-autocomplete>
             </mat-form-field>
+            <button (click)="shouldAddNewBorrower.set(true)" type="button" class="py-1 float-right text-xs font-semibold px-4 rounded-full hover:bg-blue-100 flex space-x-1 text-blue-500 items-center">
+              <span class="material-symbols-rounded">add</span>
+              <span>New Borrower</span>
+            </button>
           </div>
+          <ng-template #newBorrowerForm>
+            <div>
+              <app-create-borrower-form [parentFormGroup]="createLoanForm" (shouldSelectExistingBorrower)="shouldAddNewBorrower.set(false)"/>
+            </div>
+          </ng-template>
         </section>
         <p class="section-title">Loan Details</p>
         <section class="flex flex-col space-y-4">
@@ -86,11 +95,11 @@
       <div *ngIf="loanRepaymentDetails" class="grid bg-lr-100 rounded-xl grid-cols-1 divide-y">
         <div class="flex justify-between py-4 px-4">
           <span>Amount</span>
-          <span class="font-semibold">{{ loanRepaymentDetails.total.toFixed(2) }}</span>
+          <span class="font-semibold">{{ loanRepaymentDetails.total.toFixed(2) | formatCurrency }}</span>
         </div>
         <div class="flex justify-between py-4 px-4">
           <span>Interest</span>
-          <span class="font-semibold">{{ loanRepaymentDetails.interest.toFixed(2) }}</span>
+          <span class="font-semibold">{{ loanRepaymentDetails.interest.toFixed(2) | formatCurrency }}</span>
         </div>
         <div class="flex justify-between py-4 px-4">
           <span>Installments</span>
@@ -98,7 +107,7 @@
         </div>
         <div class="flex justify-between py-4 px-4">
           <span>Amount per Installment</span>
-          <span class="font-semibold">{{ loanRepaymentDetails.amountPerInstallment.toFixed(2) }}</span>
+          <span class="font-semibold">{{ loanRepaymentDetails.amountPerInstallment.toFixed(2) | formatCurrency }}</span>
         </div>
       </div>
       <section class="flex justify-end mt-8">
