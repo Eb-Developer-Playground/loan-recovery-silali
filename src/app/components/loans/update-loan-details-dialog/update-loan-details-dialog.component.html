@@ -1,0 +1,17 @@
+
+<h2 mat-dialog-title>Update Loan Status</h2>
+<mat-dialog-content class="pt-4">
+  <form action="" [formGroup]="updateLoanDetailsForm">
+    <div class="py-3"></div>
+    <mat-form-field class="w-full"  appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option [value]="status" *ngFor="let status of statusOptions"><span>{{ status | snakeToSpace }}</span></mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button (click)="handleUpdateStatus()" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

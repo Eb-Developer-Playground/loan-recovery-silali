@@ -25,6 +25,7 @@ import { LoginData } from '../../models/auth/LoginData';
 import { selectAuthLoadingState } from '../../store/auth/auth.selectors';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { skip } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login-page',
@@ -46,6 +47,7 @@ import { skip } from 'rxjs';
     NgIf,
     MatAnchor,
     RouterLink,
+    TranslateModule,
   ],
   templateUrl: './login-page.component.html',
 })

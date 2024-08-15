@@ -39,7 +39,7 @@ body {
 }
 
 
-@include mat.typography-hierarchy($loan-recovery-theme);
+//@include mat.typography-hierarchy($loan-recovery-theme);
 
 .mdc-notched-outline__notch {
   border-right: none;
@@ -48,4 +48,35 @@ body {
 
 .advanced-pie-legend .legend-items-container .legend-items {
   padding-top: 20px;
+}
+
+.lr-card {
+  @apply border-none bg-lr-100 py-0 shadow-none;
+}
+
+.advanced-pie-legend .total-value {
+  @apply text-3xl font-mono font-light;
+}
+
+.advanced-pie-legend .total-label {
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+}
+
+.advanced-pie-legend .item-value {
+  @apply font-mono font-light;
+}
+
+.advanced-pie-legend .item-label {
+  @apply font-semibold text-sm;
+  margin-top: 4px !important;
+}
+
+.advanced-pie-legend .item-percent {
+  @apply font-mono font-light;
+  font-size: 1rem !important;
+}
+
+.section-title {
+  @apply font-semibold mb-4 text-lr-800;
 }

@@ -1,6 +1,8 @@
 <div
-  class="bg-slate-100 min-h-screen w-full mx-auto flex justify-center items-center"
+  class="bg-slate-100 relative min-h-screen w-full mx-auto flex justify-center items-center"
 >
+
+  <app-language-selector/>
   <div class="w-4/12">
 
     <mat-card appearance="outlined" class="overflow-hidden">
@@ -13,25 +15,25 @@
             <app-logo/>
           </div>
           <div class="mb-12">
-            <h3>Sign in</h3>
-            <p>To continue to LoanRecovery</p>
+            <h3>{{ 'AUTH_SIGN_UP' | translate }}</h3>
+            <p>{{ 'AUTH_CONTINUE_TO' | translate }} LoanRecovery</p>
           </div>
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <mat-form-field class="w-full" appearance="outline">
-              <mat-label>Name</mat-label>
+              <mat-label>{{  'NAME' | translate }}</mat-label>
               <input type="text" autocomplete="on" formControlName="name" matInput/>
             </mat-form-field>
             <mat-form-field class="w-full" appearance="outline">
-              <mat-label>Email</mat-label>
+              <mat-label>{{ 'EMAIL' | translate }}</mat-label>
               <input type="email" autocomplete="on" formControlName="email" matInput/>
             </mat-form-field>
             <mat-form-field class="w-full" appearance="outline">
-              <mat-label>Password</mat-label>
+              <mat-label>{{ 'PASSWORD' | translate}}</mat-label>
               <input autocomplete="on" type="password" formControlName="password" matInput/>
             </mat-form-field>
             <div class="flex-1 items-end justify-end mt-12 space-x-2">
-              <a mat-button routerLink="/register">Login</a>
-              <button class="float-right" mat-flat-button>Register Account</button>
+              <a mat-button routerLink="/login">{{'AUTH_LOGIN'| translate}}</a>
+              <button class="float-right" mat-flat-button>{{ 'AUTH_REGISTER_ACCOUNT' | translate }}</button>
             </div>
           </form>
         </div>

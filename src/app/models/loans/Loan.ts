@@ -1,4 +1,5 @@
 import { Borrower } from './Borrower';
+import { Repayment } from './Repayment';
 
 export enum LoanStatus {
   Current = 'current',
@@ -17,4 +18,6 @@ export interface Loan {
   endDate: string;
   outstandingBalance: number;
   status: LoanStatus;
+  repayments?: Repayment[];
+  repaymentSchedule: 'monthly' | 'quarterly' | 'yearly' | 'bi-annually';
 }

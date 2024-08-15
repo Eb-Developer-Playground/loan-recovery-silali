@@ -17,3 +17,8 @@ export const selectSelectedLoan = createSelector(
   selectLoansState,
   (state: LoansState) => state.selectedLoan,
 );
+
+export const selectIsUpdatingLoans = createSelector(
+  selectLoansState,
+  (state: LoansState) => state.isUpdatingLoans,
+);

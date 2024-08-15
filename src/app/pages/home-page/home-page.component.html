@@ -1,57 +1,27 @@
 <div>
-  <h3>Dashboard</h3>
-  <div class="grid grid-cols-4 grid-rows-1 gap-4 mb-8">
+  <app-page-header title="Dashboard"/>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-1 md:gap-4 gap-2 mb-8">
     <div class="col-span-1">
-      <mat-card appearance="outlined">
-        <mat-card-content>
-          <mat-card-title>1500</mat-card-title>
-          <p>Total Loans Issued</p>
-        </mat-card-content>
-      </mat-card>
+      <app-stat-card title="TOTAL_LOANS_ISSUED" value="6700"/>
     </div>
     <div class="col-span-1">
-      <mat-card appearance="outlined">
-        <mat-card-content>
-          <mat-card-title>910</mat-card-title>
-          <p>Total Loans Recovered</p>
-        </mat-card-content>
-      </mat-card>
+      <app-stat-card title="TOTAL_LOANS_RECOVERED" value="910"/>
     </div>
     <div class="col-span-1">
-      <mat-card appearance="outlined">
-        <mat-card-content>
-          <mat-card-title>23,000,700</mat-card-title>
-          <p>Total Amount Issued</p>
-        </mat-card-content>
-      </mat-card>
+      <app-stat-card title="TOTAL_AMOUNT_ISSUED" value="23,000,700"/>
     </div>
     <div class="col-span-1">
-      <mat-card appearance="outlined">
-        <mat-card-content>
-          <mat-card-title>1,900,000</mat-card-title>
-          <p>Total Amount Recovered</p>
-        </mat-card-content>
-      </mat-card>
+      <app-stat-card title="TOTAL_AMOUNT_RECOVERED" value="19,900,730"/>
     </div>
   </div>
-  <div class="grid grid-cols-5  gap-4">
+  <div class="grid grid-cols-5  gap-6">
     <div class="col-span-5">
-      <mat-card appearance="outlined">
-        <mat-card-content>
-          <mat-card-title>Loan by type</mat-card-title>
-          <ngx-charts-advanced-pie-chart [results]="loanTypes"/>
-        </mat-card-content>
-      </mat-card>
+      <p class="section-title">{{ 'LOANS_BY_TYPE' | translate }}</p>
+      <app-loan-types-chart/>
     </div>
     <div class="col-span-5">
-      <mat-card appearance="outlined">
-        <mat-card-content>
-          <mat-card-title>Monthly Recovered Loans</mat-card-title>
-          <div class="pt-12">
-            <ngx-charts-bar-vertical [xAxis]="true" [yAxis]="true" [results]="monthlyStats" />
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <p class="section-title">{{ 'RECOVERED_LOANS_BY_MONTH' | translate }}</p>
+      <app-monthly-recovered-chart/>
     </div>
   </div>
 </div>

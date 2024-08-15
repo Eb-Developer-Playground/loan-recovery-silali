@@ -1,0 +1,50 @@
+<app-page-header title="MANAGE_PROFILE"/>
+<div class="w-full md:w-full">
+  <div class="flex flex-col lg:flex-row lg:space-x-6 space-y-4 lg:space-y-0">
+    <div class="w-full lg:w-6/12">
+      <form (ngSubmit)="handleFormSubmit()" [formGroup]="updateProfileForm" class="relative">
+        <div class="relative">
+          <div *ngIf="isUpdatingProfile$ | async"
+               class="absolute right-0 w-full h-full flex justify-center items-center z-10"
+               style="background: rgba(255,255,255,0.6)">
+            <mat-spinner></mat-spinner>
+          </div>
+          <section>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>{{ 'NAME' | translate }}</mat-label>
+              <input type="text"
+                     [placeholder]="'NAME'|translate"
+                     aria-label="Name"
+                     formControlName="name"
+                     matInput>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>{{ 'EMAIL' | translate }}</mat-label>
+              <input type="text"
+                     [placeholder]="'EMAIL'|translate"
+                     aria-label="email"
+                     formControlName="email" matInput>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>{{ 'PHONE' | translate }}</mat-label>
+              <input type="text"
+                     formControlName="phone"
+                     [placeholder]="'PHONE'|translate"
+                     aria-label="phone" matInput>
+            </mat-form-field>
+          </section>
+        </div>
+        <section class="flex justify-end mt-8">
+          <button
+            [disabled]="isUpdatingProfile$ | async"
+            mat-flat-button>{{ (isUpdatingProfile$ | async) ? ('UPDATING_PROFILE' | translate) + '...' : 'UPDATE_PROFILE' | translate }}
+          </button>
+        </section>
+      </form>
+    </div>
+    <div class="w-full lg:w-6/12">
+
+    </div>
+  </div>
+
+</div>

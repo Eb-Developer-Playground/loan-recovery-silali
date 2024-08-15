@@ -1,0 +1,17 @@
+<button [matMenuTriggerFor]="languageMenu" class="absolute right-0 top-0 mt-3 mr-3 w-8 h-8 bg-red-200 rounded-full overflow-hidden flex items-center justify-center">
+  <current-language-indicator [language]="(selectedLanguage | async)"/>
+</button>
+<mat-menu #languageMenu>
+  <button (click)="handleLanguageChange('en')" class="" mat-menu-item>
+          <span class="flex px-4 space-x-4 items-center">
+            <flag-uk/>
+            <span>English</span>
+          </span>
+  </button>
+  <button (click)="handleLanguageChange('fr')" mat-menu-item>
+           <span class="flex px-4 space-x-4 items-center">
+            <flag-fr/>
+          <span>French</span>
+          </span>
+  </button>
+</mat-menu>
