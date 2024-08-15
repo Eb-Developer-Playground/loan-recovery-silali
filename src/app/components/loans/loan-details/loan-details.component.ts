@@ -4,11 +4,21 @@ import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { NgForOf, NgIf } from '@angular/common';
+import { FormatCurrencyPipe } from '../../../pipes/format-currency.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-loan-details',
   standalone: true,
-  imports: [LoanStatusBadgeComponent, MatButton, MatIcon, NgForOf, NgIf],
+  imports: [
+    LoanStatusBadgeComponent,
+    MatButton,
+    MatIcon,
+    NgForOf,
+    NgIf,
+    FormatCurrencyPipe,
+    TranslateModule,
+  ],
   templateUrl: './loan-details.component.html',
 })
 export class LoanDetailsComponent {

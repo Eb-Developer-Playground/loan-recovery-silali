@@ -3,36 +3,40 @@
     <h6 class="font-semibold text-xl mb-2">Loan Details</h6>
     <div class="grid grid-cols-1 bg-lr-100 rounded-xl divide divide-y">
       <div class="flex justify-between p-4">
-        <span class="font-semibold">Borrower</span>
+        <span class="font-semibold">{{ 'BORROWER' | translate }}</span>
         <span class="">{{ loan?.borrower?.fullName }}</span>
       </div>
       <div class="flex justify-between p-4">
-        <span class="font-semibold">Loan Amount</span>
+        <span class="font-semibold">{{ 'LOAN_AMOUNT' | translate }}</span>
         <span class="">{{ loan?.loanAmount }}</span>
       </div>
       <div class="flex justify-between p-4">
-        <span class="font-semibold">Acc No.</span>
+        <span class="font-semibold">{{ 'ACCOUNT_NUMBER' | translate }}</span>
         <span class="">{{ loan?.borrower?.accountNumber }}</span>
       </div>
       <div class="flex justify-between p-4">
-        <span class="font-semibold">Status</span>
+        <span class="font-semibold">{{ 'STATUS' | translate }}</span>
         <app-loan-status-badge [status]="loan?.status || ''"/>
+      </div>
+      <div class="flex justify-between p-4">
+        <span class="font-semibold">{{ 'REPAYMENT_SCHEDULE' | translate }}</span>
+        <span class="capitalize">{{ (loan?.repaymentSchedule || '') | translate }}</span>
       </div>
     </div>
   </section>
   <section>
     <button class="float-right" (click)="onEditForm.emit(loan)" mat-button>
       <mat-icon class="material-symbols-rounded">edit</mat-icon>
-      Update Status
+      {{'UPDATE_STATUS' | translate }}
     </button>
   </section>
   <section>
     <h6 class="font-semibold text-xl mb-4">Loan Repayments</h6>
     <div class="grid grid-cols-1 space-y-4" *ngIf="loan?.repayments;else repaymentsEmptyState">
       <div class="flex space-x-4 text-sm font-light items-center" *ngFor="let payment of loan?.repayments">
-        <span>{{ payment.date }}</span>
-        <span class="border-lr-900 h-1 border-b-0 border-2 border-x-0  border-dashed flex-1"></span>
-        <span>{{ payment.amount }}</span>
+        <span>{{ payment.amount | formatCurrency }}</span>
+        <span class="border-lr-900 h-1 border-t-0 border-2 border-x-0  border-dashed flex-1"></span>
+        <span>Paid on <strong>{{ payment.date }}</strong></span>
       </div>
     </div>
     <ng-template #repaymentsEmptyState>

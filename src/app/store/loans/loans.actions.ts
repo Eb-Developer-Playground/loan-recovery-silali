@@ -12,11 +12,16 @@ export const enum LoanActions {
   CREATE_LOAN = '[Loan] Create Loan',
   CREATE_LOAN_SUCCESS = '[Loan] Create Loan Success',
   UPDATE_LOAN_STATUS = '[Loan] Update Loan Status',
+  SEARCH_LOANS = '[Loan] Search Loans',
+  SEARCH_LOANS_SUCCESS = '[Loan] Search Loans Success',
+  SEARCH_LOANS_ERROR = '[Loan] Search Loans Error',
+  SEARCH_LOANS_NO_RESULTS = '[Loan] Search Loans No Result',
 }
 
 interface LoanFilters {
   status: LoanStatus | null;
 }
+
 export const getLoans = createAction(LoanActions.GET_LOANS);
 
 export const getLoansSuccess = createAction(
@@ -49,3 +54,19 @@ export const updateLoanStatus = createAction(
   LoanActions.UPDATE_LOAN_STATUS,
   props<{ status: LoanStatus }>(),
 );
+
+export const searchLoans = createAction(
+  LoanActions.SEARCH_LOANS,
+  props<{ query: string }>(),
+);
+
+export const searchLoansSuccess = createAction(
+  LoanActions.SEARCH_LOANS_SUCCESS,
+  props<{ searchResults: Loan[] }>(),
+);
+
+export const searchLoansNoResult = createAction(
+  LoanActions.SEARCH_LOANS_NO_RESULTS,
+);
+
+export const searchLoansError = createAction(LoanActions.SEARCH_LOANS_ERROR);

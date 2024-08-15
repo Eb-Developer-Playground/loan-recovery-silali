@@ -24,8 +24,6 @@ import { PageHeaderComponent } from '../../components/common/page-header/page-he
 export class LoansPageComponent {
   constructor(private store: Store) {}
 
-  displayableLoans = this.store.select(selectDisplayableLoans);
-
   ngOnInit() {
     this.store.dispatch(getLoans());
   }

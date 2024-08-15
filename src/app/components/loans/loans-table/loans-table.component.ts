@@ -6,6 +6,7 @@ import {
   Input,
   Output,
   signal,
+  ViewChild,
 } from '@angular/core';
 import {
   MatCell,
@@ -19,9 +20,14 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
+  MatTableDataSource,
 } from '@angular/material/table';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { MatButton, MatFabButton } from '@angular/material/button';
+import {
+  MatButton,
+  MatFabButton,
+  MatIconButton,
+} from '@angular/material/button';
 import { Loan, LoanStatus } from '../../../models/loans/Loan';
 import { LoanStatusBadgeComponent } from '../loan-status-badge/loan-status-badge.component';
 import { DrawerComponent } from '../../common/drawer/drawer.component';
@@ -32,14 +38,26 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { SnakeToSpacePipe } from '../../../pipes/snake-to-space.pipe';
 import { Store } from '@ngrx/store';
-import { selectSelectedLoan } from '../../../store/loans/loans.selector';
-import { deselectLoan, selectLoan } from '../../../store/loans/loans.actions';
+import {
+  selectDisplayableLoans,
+  selectSelectedLoan,
+} from '../../../store/loans/loans.selector';
+import {
+  deselectLoan,
+  searchLoans,
+  searchLoansNoResult,
+  selectLoan,
+} from '../../../store/loans/loans.actions';
 import { Router } from '@angular/router';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateLoanDetailsDialogComponent } from '../update-loan-details-dialog/update-loan-details-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormatCurrencyPipe } from '../../../pipes/format-currency.pipe';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounce, delay } from 'rxjs';
 
 @Component({
   selector: 'app-loans-table',
@@ -73,13 +91,28 @@ import { FormatCurrencyPipe } from '../../../pipes/format-currency.pipe';
     MatPaginator,
     TranslateModule,
     FormatCurrencyPipe,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatIconButton,
+    ReactiveFormsModule,
+    MatPaginatorModule,
   ],
   templateUrl: './loans-table.component.html',
   styleUrl: './loans-table.component.scss',
 })
 export class LoansTableComponent {
-  @Input() data: Loan[] = [];
+  displayableLoans = this.store.select(selectDisplayableLoans);
+  private data: Loan[] = [];
   @Output() statusSelected = new EventEmitter<LoanStatus | null>();
+  searchFormControl = new FormControl('');
+  dataSource = new MatTableDataSource<Loan>();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   constructor(
     private dataExportService: DataExportService,
@@ -87,7 +120,15 @@ export class LoansTableComponent {
     private store: Store,
     private router: Router,
     private dialog: MatDialog,
-  ) {}
+  ) {
+    this.displayableLoans.subscribe({
+      next: (data) => {
+        this.data = data;
+        this.dataSource = new MatTableDataSource<Loan, MatPaginator>(data);
+      },
+    });
+    this.handleSearch();
+  }
 
   displayedColumns: string[] = [
     'id',
@@ -160,6 +201,22 @@ export class LoansTableComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
+    });
+  }
+
+  private handleSearch() {
+    this.searchFormControl.valueChanges.pipe(delay(500)).subscribe({
+      next: (query) => {
+        if (query) {
+          this.store.dispatch(
+            searchLoans({
+              query,
+            }),
+          );
+        } else {
+          this.store.dispatch(searchLoansNoResult());
+        }
+      },
     });
   }
 }

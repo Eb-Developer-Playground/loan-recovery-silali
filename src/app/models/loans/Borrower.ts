@@ -19,8 +19,8 @@ export interface Borrower {
   email?: string;
   phoneNumber?: string;
   loanCount: number;
-  createdAt: Date;
-  lastUpdated: Date;
+  createdAt: string;
+  lastUpdated: string;
   address: string;
   notes: string;
 }

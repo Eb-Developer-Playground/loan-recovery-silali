@@ -45,5 +45,15 @@
   "LOAN_DETAILS": "Loan Details",
   "MANAGE_PROFILE": "Manage Profile",
   "UPDATE_PROFILE": "Update Profile",
-  "UPDATING_PROFILE":"Updating Profile"
+  "UPDATING_PROFILE":"Updating Profile",
+  "LOAN_AMOUNT": "Loan Amount",
+  "ACCOUNT_NUMBER": "Acct. No.",
+  "REPAYMENT_SCHEDULE": "Repayment Schedule",
+  "monthly": "monthly",
+  "annually": "annually",
+  "bi-annually":  "bi-annually",
+  "quarterly": "quarterly",
+  "UPDATE_STATUS": "Update Status",
+  "SEARCH": "Search",
+  "SEARCH_LOANS_TABLE": "Search by Acct. No or Borrower"
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CreateLoanFormData } from '../../models/loans/CreateLoanFormData';
 import { LoanRepaymentDetails } from '../../models/loans/LoanRepaymentDetails';
+import { create } from '@orama/orama';
 
 interface CompoundInterest {
   amount: number;

@@ -45,5 +45,15 @@
   "LOAN_DETAILS": "Détails du prêt",
   "MANAGE_PROFILE": "Gérer le profil",
   "UPDATE_PROFILE": "Mettre à jour le profil",
-  "UPDATING_PROFILE":"Mise à jour"
+  "UPDATING_PROFILE":"Mise à jour",
+  "LOAN_AMOUNT": "Montant du Prét",
+  "ACCOUNT_NUMBER": "N° de compte",
+  "REPAYMENT_SCHEDULE": "Plan de remboursement",
+  "monthly": "mensuel",
+  "annually": "annuellement",
+  "bi-annually":  "semestriel",
+  "quarterly": "trimestriel",
+  "UPDATE_STATUS": "Mettre a Statut",
+  "SEARCH": "Le Search",
+  "SEARCH_LOANS_TABLE": "Recherche par N° de compte ou par emprunteur"
 }

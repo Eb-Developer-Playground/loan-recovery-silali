@@ -8,10 +8,14 @@ import {
   filterLoansSuccess,
   getLoans,
   getLoansSuccess,
+  searchLoans,
+  searchLoansNoResult,
+  searchLoansSuccess,
   selectLoan,
   updateLoanStatus,
 } from './loans.actions';
 import { filter } from 'rxjs';
+import { create } from '@orama/orama';
 
 export interface LoansState {
   loans: Loan[];
@@ -71,5 +75,15 @@ export const loansReducer = createReducer(
       };
     }
     return state;
+  }),
+  on(searchLoans, (state, filter) => {
+    return { ...state, loading: true };
+  }),
+  on(searchLoansSuccess, (state, { searchResults }) => {
+    console.log({ searchResults });
+    return { ...state, loading: false, displayableLoans: searchResults };
+  }),
+  on(searchLoansNoResult, (state, filter) => {
+    return { ...state, displayableLoans: state.loans };
   }),
 );

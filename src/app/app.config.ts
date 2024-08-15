@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideStore(ROOT_REDUCERS, {
       runtimeChecks: {
-        strictStateSerializability: true,
+        strictStateSerializability: false,
         strictActionSerializability: true,
         strictActionWithinNgZone: true,
         strictActionTypeUniqueness: true,

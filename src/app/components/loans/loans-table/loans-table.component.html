@@ -1,43 +1,70 @@
 <div>
-  <div class="flex space-x-2 justify-end">
-    <button [matMenuTriggerFor]="statusesMenu" mat-button>
-      {{ 'ALL_STATUSES' | translate }}
-      <mat-icon iconPositionEnd class="material-symbols-rounded">arrow_drop_down</mat-icon>
-    </button>
-    <mat-menu #statusesMenu>
-      <div (click)="handleStatusSelected(null)" mat-menu-item>
-        <mat-icon *ngIf="selectedStatus() == null else noCheck" class="material-symbols-outlined">check</mat-icon>
-        <ng-template #noCheck>
-          <span class="block w-6 h-6 bg-transparent"></span>
-        </ng-template>
-        <span class="capitalize flex px-2 space-x-2 items-center items">
+  <div class="flex space-x-2 items-center">
+    <mat-form-field class="flex-1" appearance="outline">
+      <mat-label>{{ 'SEARCH_LOANS_TABLE' | translate }}</mat-label>
+      <input matInput [formControl]="searchFormControl">
+    </mat-form-field>
+    <div class="h-[76px] hidden  md:flex space-x-2 items-start">
+      <button class="hidden md:block" [matMenuTriggerFor]="statusesMenu" mat-button>
+        {{ 'ALL_STATUSES' | translate }}
+        <mat-icon iconPositionEnd class="material-symbols-rounded">arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #statusesMenu>
+        <div (click)="handleStatusSelected(null)" mat-menu-item>
+          <mat-icon *ngIf="selectedStatus() == null else noCheck" class="material-symbols-outlined">check</mat-icon>
+          <ng-template #noCheck>
+            <span class="block w-6 h-6 bg-transparent"></span>
+          </ng-template>
+          <span class="capitalize flex px-2 space-x-2 items-center items">
           <span>{{ 'ALL_STATUSES' | translate }}</span>
         </span>
-      </div>
-      <div (click)="handleStatusSelected(status)" *ngFor="let status of statuses" mat-menu-item>
-        <mat-icon *ngIf="status == selectedStatus() else noCheck" class="material-symbols-outlined">check</mat-icon>
-        <ng-template #noCheck>
-          <span class="block w-6 h-6 bg-transparent"></span>
-        </ng-template>
-        <span class="capitalize flex px-2 space-x-2 items-center items">
+        </div>
+        <div (click)="handleStatusSelected(status)" *ngFor="let status of statuses" mat-menu-item>
+          <mat-icon *ngIf="status == selectedStatus() else noCheck" class="material-symbols-outlined">check</mat-icon>
+          <ng-template #noCheck>
+            <span class="block w-6 h-6 bg-transparent"></span>
+          </ng-template>
+          <span class="capitalize flex px-2 space-x-2 items-center items">
           <span>{{ status | snakeToSpace }}</span>
         </span>
-      </div>
-    </mat-menu>
-    <button [matMenuTriggerFor]="exportMenu" mat-button>
-      <mat-icon class="material-symbols-rounded">inventory</mat-icon>
-      {{ 'EXPORT_DATA' | translate }}
-    </button>
-    <mat-menu #exportMenu>
-      <button (click)="exportToCSV()" mat-menu-item>To CSV</button>
-    </mat-menu>
-    <button (click)="handleAddLoan()" mat-flat-button>
-      <mat-icon class="material-symbols-rounded">add</mat-icon>
-      {{'ADD_LOAN' | translate }}
-    </button>
+        </div>
+      </mat-menu>
+      <button [matMenuTriggerFor]="exportMenu" mat-button>
+        <mat-icon class="material-symbols-rounded">inventory</mat-icon>
+        {{ 'EXPORT_DATA' | translate }}
+      </button>
+      <mat-menu #exportMenu>
+        <button (click)="exportToCSV()" mat-menu-item>To CSV</button>
+      </mat-menu>
+      <button (click)="handleAddLoan()" mat-flat-button>
+        <mat-icon class="material-symbols-rounded">add</mat-icon>
+        {{'ADD_LOAN' | translate }}
+      </button>
+    </div>
+    <div class="h-[76px] md:hidden shrink-0 flex items-start">
+
+      <button [matMenuTriggerFor]="mobileMenu" class="w-10 h-10 hover:bg-lr-100 flex items-center justify-center rounded-full">
+        <span class="material-symbols-rounded">menu</span>
+      </button>
+      <mat-menu #mobileMenu>
+        <button (click)="exportToCSV()" mat-menu-item>
+          <span class="flex space-x-2">
+            <span class="material-symbols-rounded">inventory</span>
+            <span>Export to CSV</span>
+          </span>
+        </button>
+        <div mat-menu-item>
+          <div class="py-4 flex justify-center">
+            <button (click)="handleAddLoan()" mat-flat-button>
+              {{'ADD_LOAN' | translate }}
+            </button>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
   </div>
   <div class="w-full overflow-x-scroll lg:overflow-x-auto">
-    <table mat-table [dataSource]="data">
+    <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> #</th>
         <td mat-cell class="border-t-0 border-b-0" *matCellDef="let element">#{{ element.id }}</td>
@@ -84,6 +111,10 @@
         </td>
       </tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
   </div>
 
   <app-drawer (closeDrawer)="handleDrawerClose()" [title]="'Loan #' + (selectedItem | async)?.id"
