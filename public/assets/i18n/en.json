@@ -59,5 +59,6 @@
   "NAME_IS_REQUIRED": "Name is required",
   "EMAIL_IS_REQUIRED": "Email is required",
   "EMAIL_IS_INVALID": "Email is invalid",
-  "PASSWORD_IS_REQUIRED": "Password is required"
+  "PASSWORD_IS_REQUIRED": "Password is required",
+  "NO_LOAN_RECORDS_FOUND": "No loan records found."
 }

@@ -59,5 +59,6 @@
   "NAME_IS_REQUIRED": "Le nom est requis",
   "EMAIL_IS_REQUIRED": "Un e-mail est requis",
   "EMAIL_IS_INVALID": "L'e-mail n'est pas valide",
-  "PASSWORD_IS_REQUIRED": "Un mot de passe est requis"
+  "PASSWORD_IS_REQUIRED": "Un mot de passe est requis",
+  "NO_LOAN_RECORDS_FOUND": "Aucun enregistrement de prêt trouvé."
 }
