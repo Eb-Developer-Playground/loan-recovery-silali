@@ -1,0 +1,61 @@
+<section [formGroup]="parentFormGroup!" class="flex flex-col space-y-4">
+  <div>
+    <div class="flex md:space-x-6 md:flex-row flex-col">
+      <mat-form-field class="w-full md:w-1/2" appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input type="text"
+               formControlName="newBorrowerFirstName"
+               placeholder="First Name"
+               aria-label="Number"
+               matInput>
+      </mat-form-field>
+      <mat-form-field class="w-full md:w-1/2" appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input type="text"
+               formControlName="newBorrowerLastName"
+               placeholder="Last Name"
+               aria-label="Number"
+               matInput>
+      </mat-form-field>
+    </div>
+    <div class="flex md:space-x-6 md:flex-row flex-col">
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Account Number</mat-label>
+        <input type="text"
+               formControlName="newBorrowerAccountNumber"
+               placeholder="Account Number"
+               aria-label="Account Number"
+               matInput>
+      </mat-form-field>
+    </div>
+    <div class="flex md:space-x-6 md:flex-row flex-col">
+      <mat-form-field class="w-full md:w-1/2" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email"
+               formControlName="newBorrowerEmail"
+               placeholder="Email"
+               aria-label="Email"
+               matInput>
+      </mat-form-field>
+      <mat-form-field class="w-full md:w-1/2" appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input type="text"
+               formControlName="newBorrowerPhone"
+               placeholder="Phone Number"
+               aria-label="Account Number"
+               matInput>
+      </mat-form-field>
+    </div>
+    <div class="flex md:space-x-6 md:flex-row flex-col">
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Address</mat-label>
+        <textarea formControlName="newBorrowerAddress" type="text" placeholder="Address" aria-label="Email" matInput></textarea>
+      </mat-form-field>
+    </div>
+    <button (click)="shouldSelectExistingBorrower.emit(true)" type="button" class="py-1 float-right text-xs font-semibold px-4 rounded-full hover:bg-blue-100 flex space-x-1 text-blue-500 items-center">
+      <span class="material-symbols-rounded">close</span>
+      <span>Select Existing Borrower</span>
+    </button>
+  </div>
+
+</section>
