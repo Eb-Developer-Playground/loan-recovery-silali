@@ -37,6 +37,7 @@ import { LoanRepaymentDetails } from '../../../models/loans/LoanRepaymentDetails
 import { paymentScheduleValidator } from '../../../validators/paymentScheduleValidator';
 import { CreateBorrowerFormComponent } from '../../loan/create-borrower-form/create-borrower-form.component';
 import { FormatCurrencyPipe } from '../../../pipes/format-currency.pipe';
+import { z } from 'zod';
 
 @Component({
   selector: 'app-create-loan-form',
@@ -73,8 +74,6 @@ export class CreateLoanFormComponent {
 
   loanRepaymentDetails: LoanRepaymentDetails | null | undefined = null;
 
-  public $errors: ValidationErrors | null = null;
-
   createLoanForm: FormGroup = new FormGroup({
     amount: new FormControl(0, [Validators.required, Validators.min(1000)]),
     interestRate: new FormControl(0, [
@@ -90,18 +89,28 @@ export class CreateLoanFormComponent {
     borrower: new FormControl(null, Validators.required),
   });
 
+  zodValidatorSchema = z.object({
+    amount: z.number().min(1000),
+    interestRate: z.number().min(0.1).max(100),
+    paymentPeriod: z.number().min(0.1).min(1),
+    paymentSchedule: z.enum([
+      'monthly',
+      'annually',
+      'bi-annually',
+      'quarterly',
+    ]),
+  });
+  formErrors: Record<string, string> = {};
+
   constructor(
     private store: Store,
     private loanService: LoanService,
-    private formBuilder: FormBuilder,
   ) {
     this.handleAutocompleteFiltering();
     this.handleRepaymentCalculation();
-
-    // this.createLoanForm = this.formBuilder.group();
-
     effect(() => {
       if (this.shouldAddNewBorrower()) {
+        this.createLoanForm.markAsUntouched();
         this.createLoanForm.addControl(
           'newBorrowerFirstName',
           new FormControl('', Validators.required),
@@ -127,13 +136,58 @@ export class CreateLoanFormComponent {
           new FormControl('', Validators.required),
         );
         this.createLoanForm.removeControl('borrower');
+
+        this.zodValidatorSchema = z.object({
+          amount: z.number().min(1000),
+          interestRate: z.number().min(0.1).max(100),
+          paymentPeriod: z.number().min(0.1).min(1),
+          paymentSchedule: z.enum([
+            'monthly',
+            'annually',
+            'bi-annually',
+            'quarterly',
+          ]),
+          newBorrowerFirstName: z.string().min(1, 'First Name is Required'),
+          newBorrowerLastName: z.string().min(1, 'Last Name is Required'),
+          newBorrowerEmail: z.string().min(1, 'Email is Required'),
+          newBorrowerPhone: z.string().min(1, 'Phone is Required'),
+          newBorrowerAddress: z.string().min(1, 'Address is Required'),
+          newBorrowerAccountNumber: z
+            .string()
+            .min(1, 'Account Number is Required'),
+        });
       } else {
+        this.createLoanForm.markAsUntouched();
+        this.zodValidatorSchema = z.object({
+          borrower: z
+            .object(
+              {},
+              {
+                message: 'Borrower is required to proceed',
+              },
+            )
+            .required(),
+          amount: z.number().min(1000),
+          interestRate: z.number().min(0.1).max(100),
+          paymentPeriod: z.number().min(0.1).min(1),
+          paymentSchedule: z.enum([
+            'monthly',
+            'annually',
+            'bi-annually',
+            'quarterly',
+          ]),
+        });
+        this.createLoanForm.removeControl('newBorrowerFirstName');
+        this.createLoanForm.removeControl('newBorrowerLastName');
+        this.createLoanForm.removeControl('newBorrowerEmail');
+        this.createLoanForm.removeControl('newBorrowerPhone');
+        this.createLoanForm.removeControl('newBorrowerAddress');
+        this.createLoanForm.removeControl('newBorrowerAccountNumber');
         this.createLoanForm.addControl(
           'borrower',
-          new FormControl(null, Validators.required),
+          new FormControl('', Validators.required),
         );
       }
-      console.log(`${this.shouldAddNewBorrower()}`);
     });
   }
 
@@ -150,6 +204,7 @@ export class CreateLoanFormComponent {
   }
 
   handleIssueLoan() {
+    console.log(this.createLoanForm.valid, '@handleIssueLoan');
     if (this.createLoanForm.valid) {
       this.store.dispatch(
         createLoan({
@@ -157,6 +212,18 @@ export class CreateLoanFormComponent {
         }),
       );
     } else {
+      try {
+        console.log(this.createLoanForm.value, '@handleIssueLoan__VAlue');
+        const x = this.zodValidatorSchema.parse(this.createLoanForm.value);
+      } catch (e) {
+        if (e instanceof z.ZodError) {
+          this.parseFormErrors(e.errors);
+          console.log('Validation failed:', e.errors);
+        } else {
+          console.error('Unexpected error:', e);
+        }
+      }
+      this.createLoanForm.markAllAsTouched();
       let x = Object.keys(this.createLoanForm.controls).reduce(
         (
           previousValue: Record<string, any>,
@@ -226,5 +293,13 @@ export class CreateLoanFormComponent {
     });
   }
 
-  handleFormErrors() {}
+  private parseFormErrors(errors: z.ZodIssue[]) {
+    this.formErrors = errors.reduce(
+      (errorObject: Record<string, string>, error) => {
+        errorObject[error.path[0]] = error.message;
+        return errorObject;
+      },
+      {},
+    );
+  }
 }
