@@ -3,6 +3,7 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-borrower-form',
@@ -14,6 +15,7 @@ import { NgIf } from '@angular/common';
     ReactiveFormsModule,
     MatError,
     NgIf,
+    TranslateModule,
   ],
   templateUrl: './create-borrower-form.component.html',
   styleUrl: './create-borrower-form.component.scss',

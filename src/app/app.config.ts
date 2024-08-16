@@ -41,11 +41,6 @@ export const appConfig: ApplicationConfig = {
     }),
     provideEffects([AuthEffects, RouterEffects, LoansEffects]),
     provideRouterStore(),
-    provideStoreDevtools({
-      maxAge: 25,
-      logOnly: !isDevMode(),
-      name: 'NgRx Loan Recovery App',
-    }),
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {

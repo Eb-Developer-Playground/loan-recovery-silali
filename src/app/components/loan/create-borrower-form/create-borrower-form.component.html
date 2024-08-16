@@ -8,7 +8,7 @@
                placeholder="First Name"
                aria-label="Number"
                matInput>
-        <mat-error>{{ formErrors['newBorrowerFirstName'] }}</mat-error>
+        <mat-error>{{ formErrors['newBorrowerFirstName'] | translate }}</mat-error>
       </mat-form-field>
       <mat-form-field class="w-full md:w-1/2" appearance="outline">
         <mat-label>Last Name</mat-label>
@@ -17,7 +17,7 @@
                placeholder="Last Name"
                aria-label="Number"
                matInput>
-        <mat-error>{{ formErrors['newBorrowerLastName'] }}</mat-error>
+        <mat-error>{{ formErrors['newBorrowerLastName'] | translate }}</mat-error>
       </mat-form-field>
     </div>
     <div class="flex md:space-x-6 mb-4 md:flex-row flex-col">
@@ -28,7 +28,7 @@
                placeholder="Account Number"
                aria-label="Account Number"
                matInput>
-        <mat-error>{{ formErrors['newBorrowerAccountNumber'] }}</mat-error>
+        <mat-error>{{ formErrors['newBorrowerAccountNumber'] | translate }}</mat-error>
       </mat-form-field>
     </div>
     <div class="flex md:space-x-6 mb-4 md:flex-row flex-col">
@@ -39,7 +39,7 @@
                placeholder="Email"
                aria-label="Email"
                matInput>
-        <mat-error>{{ formErrors['newBorrowerEmail'] }}</mat-error>
+        <mat-error>{{ formErrors['newBorrowerEmail'] | translate }}</mat-error>
       </mat-form-field>
       <mat-form-field class="w-full md:w-1/2" appearance="outline">
         <mat-label>Phone Number</mat-label>
@@ -48,14 +48,14 @@
                placeholder="Phone Number"
                aria-label="Account Number"
                matInput>
-        <mat-error>{{ formErrors['newBorrowerPhone'] }}</mat-error>
+        <mat-error>{{ formErrors['newBorrowerPhone'] | translate }}</mat-error>
       </mat-form-field>
     </div>
     <div class="flex md:space-x-6 mb-4 md:flex-row flex-col">
       <mat-form-field class="w-full" appearance="outline">
         <mat-label>Address</mat-label>
         <textarea formControlName="newBorrowerAddress" type="text" placeholder="Address" aria-label="Email" matInput></textarea>
-        <mat-error>{{ formErrors['newBorrowerAddress'] }}</mat-error>
+        <mat-error>{{ formErrors['newBorrowerAddress'] | translate }}</mat-error>
       </mat-form-field>
     </div>
     <button (click)="shouldSelectExistingBorrower.emit(true)" type="button" class="py-1 float-right text-xs font-semibold px-4 rounded-full hover:bg-blue-100 flex space-x-1 text-blue-500 items-center">

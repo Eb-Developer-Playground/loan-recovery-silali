@@ -38,6 +38,7 @@ import { paymentScheduleValidator } from '../../../validators/paymentScheduleVal
 import { CreateBorrowerFormComponent } from '../../loan/create-borrower-form/create-borrower-form.component';
 import { FormatCurrencyPipe } from '../../../pipes/format-currency.pipe';
 import { z } from 'zod';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-loan-form',
@@ -61,12 +62,22 @@ import { z } from 'zod';
     MatError,
     CreateBorrowerFormComponent,
     FormatCurrencyPipe,
+    TranslateModule,
   ],
   templateUrl: './create-loan-form.component.html',
   styleUrl: './create-loan-form.component.scss',
 })
 export class CreateLoanFormComponent {
   @Input() borrowers: Borrower[] = [];
+
+  constructor(
+    private store: Store,
+    private loanService: LoanService,
+  ) {
+    this.handleAutocompleteFiltering();
+    this.handleRepaymentCalculation();
+    this.setupDynamicFormControls();
+  }
 
   filteredOptions = of(this.borrowers);
 
@@ -102,92 +113,113 @@ export class CreateLoanFormComponent {
   });
   formErrors: Record<string, string> = {};
 
-  constructor(
-    private store: Store,
-    private loanService: LoanService,
-  ) {
-    this.handleAutocompleteFiltering();
-    this.handleRepaymentCalculation();
+  private setupDynamicFormControls() {
     effect(() => {
+      this.resetForm();
       if (this.shouldAddNewBorrower()) {
-        this.createLoanForm.markAsUntouched();
-        this.createLoanForm.addControl(
-          'newBorrowerFirstName',
-          new FormControl('', Validators.required),
-        );
-        this.createLoanForm.addControl(
-          'newBorrowerLastName',
-          new FormControl('', Validators.required),
-        );
-        this.createLoanForm.addControl(
-          'newBorrowerEmail',
-          new FormControl('', [Validators.required, Validators.email]),
-        );
-        this.createLoanForm.addControl(
-          'newBorrowerPhone',
-          new FormControl('', Validators.required),
-        );
-        this.createLoanForm.addControl(
-          'newBorrowerAddress',
-          new FormControl('', Validators.required),
-        );
-        this.createLoanForm.addControl(
-          'newBorrowerAccountNumber',
-          new FormControl('', Validators.required),
-        );
-        this.createLoanForm.removeControl('borrower');
-
-        this.zodValidatorSchema = z.object({
-          amount: z.number().min(1000),
-          interestRate: z.number().min(0.1).max(100),
-          paymentPeriod: z.number().min(0.1).min(1),
-          paymentSchedule: z.enum([
-            'monthly',
-            'annually',
-            'bi-annually',
-            'quarterly',
-          ]),
-          newBorrowerFirstName: z.string().min(1, 'First Name is Required'),
-          newBorrowerLastName: z.string().min(1, 'Last Name is Required'),
-          newBorrowerEmail: z.string().min(1, 'Email is Required'),
-          newBorrowerPhone: z.string().min(1, 'Phone is Required'),
-          newBorrowerAddress: z.string().min(1, 'Address is Required'),
-          newBorrowerAccountNumber: z
-            .string()
-            .min(1, 'Account Number is Required'),
-        });
+        this.addNewBorrowerControls();
+        this.updateZodSchemaForNewBorrower();
       } else {
-        this.createLoanForm.markAsUntouched();
-        this.zodValidatorSchema = z.object({
-          borrower: z
-            .object(
-              {},
-              {
-                message: 'Borrower is required to proceed',
-              },
-            )
-            .required(),
-          amount: z.number().min(1000),
-          interestRate: z.number().min(0.1).max(100),
-          paymentPeriod: z.number().min(0.1).min(1),
-          paymentSchedule: z.enum([
-            'monthly',
-            'annually',
-            'bi-annually',
-            'quarterly',
-          ]),
-        });
-        this.createLoanForm.removeControl('newBorrowerFirstName');
-        this.createLoanForm.removeControl('newBorrowerLastName');
-        this.createLoanForm.removeControl('newBorrowerEmail');
-        this.createLoanForm.removeControl('newBorrowerPhone');
-        this.createLoanForm.removeControl('newBorrowerAddress');
-        this.createLoanForm.removeControl('newBorrowerAccountNumber');
-        this.createLoanForm.addControl(
-          'borrower',
-          new FormControl('', Validators.required),
-        );
+        this.addBorrowerControl();
+        this.updateZodSchemaForExistingBorrower();
       }
+    });
+  }
+
+  private resetForm(): void {
+    this.createLoanForm.markAsPristine();
+  }
+
+  private addNewBorrowerControls() {
+    this.createLoanForm.addControl(
+      'newBorrowerFirstName',
+      new FormControl('', Validators.required),
+    );
+    this.createLoanForm.addControl(
+      'newBorrowerLastName',
+      new FormControl('', Validators.required),
+    );
+    this.createLoanForm.addControl(
+      'newBorrowerEmail',
+      new FormControl('', [Validators.required, Validators.email]),
+    );
+    this.createLoanForm.addControl(
+      'newBorrowerPhone',
+      new FormControl('', Validators.required),
+    );
+    this.createLoanForm.addControl(
+      'newBorrowerAddress',
+      new FormControl('', Validators.required),
+    );
+    this.createLoanForm.addControl(
+      'newBorrowerAccountNumber',
+      new FormControl('', Validators.required),
+    );
+    this.createLoanForm.removeControl('borrower');
+  }
+
+  private addBorrowerControl() {
+    this.createLoanForm.addControl(
+      'borrower',
+      new FormControl('', Validators.required),
+    );
+    this.createLoanForm.removeControl('newBorrowerFirstName');
+    this.createLoanForm.removeControl('newBorrowerLastName');
+    this.createLoanForm.removeControl('newBorrowerEmail');
+    this.createLoanForm.removeControl('newBorrowerPhone');
+    this.createLoanForm.removeControl('newBorrowerAddress');
+    this.createLoanForm.removeControl('newBorrowerAccountNumber');
+  }
+
+  private updateZodSchemaForNewBorrower() {
+    this.zodValidatorSchema = z.object({
+      amount: z
+        .number({ message: 'FIELD_REQUIRED' })
+        .min(1000, 'MIN_VALIDATION_VALUE'),
+      interestRate: z
+        .number({ message: 'FIELD_REQUIRED' })
+        .min(0.1, 'MIN_VALIDATION_VALUE')
+        .max(100, 'MAX_VALIDATION_VALUE'),
+      paymentPeriod: z
+        .number({ message: 'FIELD_REQUIRED' })
+        .min(1, 'MIN_VALIDATION_VALUE'),
+      paymentSchedule: z.enum(
+        ['monthly', 'annually', 'bi-annually', 'quarterly'],
+        {
+          message: 'INVALID_VALUE',
+        },
+      ),
+      newBorrowerFirstName: z.string().min(1, 'FIRST_NAME_IS_REQUIRED'),
+      newBorrowerLastName: z.string().min(1, 'LAST_NAME_IS_REQUIRED'),
+      newBorrowerEmail: z
+        .string()
+        .email('INVALID_EMAIL')
+        .min(1, 'EMAIL_IS_REQUIRED'),
+      newBorrowerPhone: z.string().min(1, 'PHONE_IS_REQUIRED'),
+      newBorrowerAddress: z.string().min(1, 'ADDRESS_IS_REQUIRED'),
+      newBorrowerAccountNumber: z.string().min(1, 'ACCOUNT_NUMBER_IS_REQUIRED'),
+    });
+  }
+
+  private updateZodSchemaForExistingBorrower() {
+    this.zodValidatorSchema = z.object({
+      borrower: z.object({}, { message: 'BORROWER_IS_REQUIRED' }).required(),
+      amount: z
+        .number({ message: 'FIELD_REQUIRED' })
+        .min(1000, 'MIN_VALIDATION_VALUE'),
+      interestRate: z
+        .number({ message: 'FIELD_REQUIRED' })
+        .min(0.1, 'MIN_VALIDATION_VALUE')
+        .max(100, 'MAX_VALIDATION_VALUE'),
+      paymentPeriod: z
+        .number({ message: 'FIELD_REQUIRED' })
+        .min(1, 'MIN_VALIDATION_VALUE'),
+      paymentSchedule: z.enum(
+        ['monthly', 'annually', 'bi-annually', 'quarterly'],
+        {
+          message: 'INVALID_VALUE',
+        },
+      ),
     });
   }
 

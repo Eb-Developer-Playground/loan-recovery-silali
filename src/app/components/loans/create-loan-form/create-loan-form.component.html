@@ -29,7 +29,7 @@
                 </mat-option
                 >
               </mat-autocomplete>
-              <mat-error>{{ formErrors['borrower'] }}</mat-error>
+              <mat-error>{{ formErrors['borrower'] | translate }}</mat-error>
             </mat-form-field>
             <button (click)="shouldAddNewBorrower.set(true)" type="button" class="py-1 float-right text-xs font-semibold px-4 rounded-full hover:bg-blue-100 flex space-x-1 text-blue-500 items-center">
               <span class="material-symbols-rounded">add</span>
@@ -53,7 +53,7 @@
                      placeholder="Loan Amount"
                      aria-label="Number"
                      matInput>
-              <mat-error>{{ formErrors['amount'] }}</mat-error>
+              <mat-error>{{ formErrors['amount'] | translate:{min:1000 } }}</mat-error>
             </mat-form-field>
             <mat-form-field class="w-full mb-8" appearance="outline">
               <mat-label>Interest Rate</mat-label>
@@ -65,7 +65,7 @@
                      placeholder="Interest Rate"
                      aria-label="Number"
                      matInput>
-              <mat-error>{{ formErrors['interestRate'] }}</mat-error>
+              <mat-error>{{ formErrors['interestRate'] | translate:{min: 0.1, max: 100} }}</mat-error>
             </mat-form-field>
           </div>
           <div>
